@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add User</title>
+</head>
+    <body>
+        <h1>Add User</h1>
+        <form action="#" th:action="@{/users}" th:object="${user}" method="post">
+            <label for="userName" title="Name">User name</label>
+            <p><input id="userName" type="text" th:field="*{name}"/></p>
+            <label for="userSurname" title="Surname">User surname</label>
+            <p><input id="userSurname" type="text" th:field="*{surname}" /></p>
+
+            <table>
+                <tr>
+                    <td>Select user type</td>
+                </tr>
+                <tr>
+                    <td>
+                        <select id="selectType" th:field="*{type}">
+                            <option value="Admin">Admin</option>
+                            <option value="Client">Client</option>
+                            <option value="ResourceAdministrator">ResourceAdministrator</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+
+            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        </form>
+    </body>
+</html>

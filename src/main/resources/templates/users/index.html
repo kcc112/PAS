@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:if="${users.empty}">
+                <td colspan="2">empty</td>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td>
+                    <span th:text="${user.name}">Name</span>
+                </td>
+                <td>
+                    <span th:text="${user.surname}">Surname</span>
+                </td>
+                <td>
+                    <span th:text="${user.type}">Type</span>
+                </td>
+                <td>
+                    <form th:action="@{/users/{id}(id=${user.id})}" th:method="delete">
+                        <input type="submit" value="remove" />
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form th:action="@{/users/new}">
+        <input type="submit" value="Add new user" />
+    </form>
+</body>
+</html>
