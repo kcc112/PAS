@@ -6,5 +6,4 @@ public class ResourceAdministrator extends User {
     public ResourceAdministrator(String name, String surname, String type, UUID id) {
         super(name, surname, type, id);
     }
-    public ResourceAdministrator() { }
 }
