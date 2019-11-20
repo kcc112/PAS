@@ -8,9 +8,9 @@
         <h1>Add User</h1>
         <form action="#" th:action="@{/users}" th:object="${user}" method="post">
             <label for="userName" title="Name">User name</label>
-            <p><input id="userName" type="text" th:field="*{name}"/></p>
+            <p><input id="userName" type="text" th:field="*{userName}"/></p>
             <label for="userSurname" title="Surname">User surname</label>
-            <p><input id="userSurname" type="text" th:field="*{surname}" /></p>
+            <p><input id="userSurname" type="text" th:field="*{userSurname}" /></p>
 
             <table>
                 <tr>
@@ -18,7 +18,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <select id="selectType" th:field="*{type}">
+                        <select id="selectType" th:field="*{userType}">
                             <option value="Admin">Admin</option>
                             <option value="Client">Client</option>
                             <option value="ResourceAdministrator">ResourceAdministrator</option>

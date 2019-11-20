@@ -1,4 +1,4 @@
-package com.pas.pas.service;
+package com.pas.pas.service.interfaces;
 
 import com.pas.pas.model.users.User;
 

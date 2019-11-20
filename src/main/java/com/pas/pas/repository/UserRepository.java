@@ -1,6 +1,7 @@
 package com.pas.pas.repository;
 
 import com.pas.pas.model.users.User;
+import com.pas.pas.repository.interfaces.IUserRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

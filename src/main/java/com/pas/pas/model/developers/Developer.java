@@ -2,40 +2,55 @@ package com.pas.pas.model.developers;
 
 import com.pas.pas.model.technologies.Technology;
 
-public class Developer {
-    private String name;
-    private String surname;
-    private Technology technology;
+import javax.validation.constraints.NotBlank;
+import java.util.UUID;
 
-    Developer(String name, String surname, Technology technology) {
-        this.name = name;
-        this.surname = surname;
-        this.technology = technology;
+public class Developer {
+    @NotBlank
+    private String developerName;
+    @NotBlank
+    private String developerSurname;
+    private Technology developerTechnology;
+    private UUID id;
+
+    Developer(String developerName, String developerSurname, Technology developerTechnology, UUID id) {
+        this.developerName = developerName;
+        this.developerSurname = developerSurname;
+        this.developerTechnology = developerTechnology;
+        this.id = id;
     }
 
     public Developer() { }
 
-    public String getName() {
-        return name;
+    public String getDeveloperName() {
+        return developerName;
     }
 
-    public String getSurname() {
-        return surname;
+    public void setDeveloperName(String developerName) {
+        this.developerName = developerName;
     }
 
-    public Technology getTechnology() {
-        return technology;
+    public String getDeveloperSurname() {
+        return developerSurname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDeveloperSurname(String developerSurname) {
+        this.developerSurname = developerSurname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public Technology getDeveloperTechnology() {
+        return developerTechnology;
     }
 
-    public void setTechnology(Technology technology) {
-        this.technology = technology;
+    public void setDeveloperTechnology(Technology developerTechnology) {
+        this.developerTechnology = developerTechnology;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 }

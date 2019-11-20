@@ -1,4 +1,4 @@
-package com.pas.pas.repository;
+package com.pas.pas.repository.interfaces;
 
 import com.pas.pas.model.users.User;
 

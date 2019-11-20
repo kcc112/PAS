@@ -19,13 +19,13 @@
             </tr>
             <tr th:each="user : ${users}">
                 <td>
-                    <span th:text="${user.name}">Name</span>
+                    <span th:text="${user.userName}">Name</span>
                 </td>
                 <td>
-                    <span th:text="${user.surname}">Surname</span>
+                    <span th:text="${user.userSurname}">Surname</span>
                 </td>
                 <td>
-                    <span th:text="${user.type}">Type</span>
+                    <span th:text="${user.userType}">Type</span>
                 </td>
                 <td>
                     <form th:action="@{/users/{id}(id=${user.id})}" th:method="delete">

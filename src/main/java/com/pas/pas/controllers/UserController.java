@@ -1,7 +1,7 @@
-package com.pas.pas.controller;
+package com.pas.pas.controllers;
 
 import com.pas.pas.model.users.User;
-import com.pas.pas.service.UserService;
+import com.pas.pas.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +15,10 @@ import java.util.UUID;
 @Controller
 public class UserController {
 
-    private final UserService userService;
+    private final IUserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(IUserService userService) {
         this.userService = userService;
     }
 

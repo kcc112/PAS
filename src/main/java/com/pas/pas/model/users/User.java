@@ -6,43 +6,43 @@ import java.util.UUID;
 public class User {
 
     @NotBlank
-    private String name;
+    private String userName;
     @NotBlank
-    private String surname;
-    private String type;
+    private String userSurname;
+    private String userType;
     private UUID id;
 
-    User(String name, String surname, String type, UUID id) {
-        this.name = name;
-        this.surname = surname;
-        this.type = type;
+    User(String userName, String userSurname, String userType, UUID id) {
+        this.userName = userName;
+        this.userSurname = userSurname;
+        this.userType = userType;
         this.id = id;
     }
 
     public User() {}
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getUserSurname() {
+        return userSurname;
     }
 
-    public String getType() {
-        return type;
+    public String getUserType() {
+        return userType;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setUserSurname(String userSurname) {
+        this.userSurname = userSurname;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     public UUID getId() {

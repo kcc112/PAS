@@ -1,19 +1,19 @@
 package com.pas.pas.model.technologies;
 
 public class Technology {
-    private String name;
+    private String technologyName;
 
-    Technology(String name) {
-        this.name = name;
+    Technology(String technologyName) {
+        this.technologyName = technologyName;
     }
 
-    public Technology() { }
+    public Technology() {}
 
-    public String getName() {
-        return name;
+    public String getTechnologyName() {
+        return technologyName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTechnologyName(String technologyName) {
+        this.technologyName = technologyName;
     }
 }

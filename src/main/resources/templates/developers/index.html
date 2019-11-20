@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Technology</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${developers.empty}">
+            <td colspan="2">empty</td>
+        </tr>
+        <tr th:each="developer : ${developers}">
+            <td>
+                <span th:text="${developer.developerName}">Name</span>
+            </td>
+            <td>
+                <span th:text="${developer.developerSurname}">Surname</span>
+            </td>
+            <td>
+                <span th:text="${developer.developerTechnology.technologyName}">Developer</span>
+            </td>
+            <td>
+                <form th:action="@{/developers/{id}(id=${developer.id})}" th:method="delete">
+                    <input type="submit" value="remove" />
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <form th:action="@{/developers/new}">
+        <input type="submit" value="Add new developer" />
+    </form>
+</body>
+</html>

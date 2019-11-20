@@ -4,7 +4,8 @@ import com.pas.pas.model.users.Admin;
 import com.pas.pas.model.users.Client;
 import com.pas.pas.model.users.ResourceAdministrator;
 import com.pas.pas.model.users.User;
-import com.pas.pas.repository.IUserRepository;
+import com.pas.pas.repository.interfaces.IUserRepository;
+import com.pas.pas.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,17 +23,17 @@ public class UserService implements IUserService {
     }
 
     public void addUser(User user) {
-        switch (user.getType()) {
+        switch (user.getUserType()) {
             case "Admin":
-                user = new Admin(user.getName(), user.getSurname(), user.getType(), user.getId());
+                user = new Admin(user.getUserName(), user.getUserSurname(), user.getUserType(), user.getId());
                 userRepository.addUser(user);
                 break;
             case "Client":
-                user = new Client(user.getName(), user.getSurname(), user.getType(), user.getId());
+                user = new Client(user.getUserName(), user.getUserSurname(), user.getUserType(), user.getId());
                 userRepository.addUser(user);
                 break;
             case "ResourceAdministrator":
-                user = new ResourceAdministrator(user.getName(), user.getSurname(), user.getType(), user.getId());
+                user = new ResourceAdministrator(user.getUserName(), user.getUserSurname(), user.getUserType(), user.getId());
                 userRepository.addUser(user);
                 break;
             default:
