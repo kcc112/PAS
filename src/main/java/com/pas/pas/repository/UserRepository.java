@@ -37,4 +37,13 @@ public class UserRepository implements IUserRepository {
         Optional<User> userToDelete = selectUserById(id);
         userToDelete.ifPresent(user -> users.remove(user));
     }
+
+    @Override
+    public void updateUser(User user) {
+        Optional<User> userCurrent = selectUserById(user.getId());
+//        if (userCurrent.isPresent()) {
+            int indexOfPersonToUpdate = users.indexOf(userCurrent.get());
+            users.set(indexOfPersonToUpdate, user);
+//        }
+    }
 }

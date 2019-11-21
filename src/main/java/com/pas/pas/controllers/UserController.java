@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping("new")
-    public String newForm(Model model) {
+    public String _new(Model model) {
         User user = new User();
         model.addAttribute("user", user);
         return  "users/new";
@@ -42,9 +42,24 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @PostMapping("{id}")
+    @PostMapping("{id}/delete")
     public String destroy(@PathVariable UUID id) {
         userService.destroyUser(id);
         return "redirect:/users";
+    }
+
+    @PostMapping("{id}")
+    public String update(@PathVariable UUID id, @ModelAttribute("user") User user) {
+        user.setId(id);
+        userService.updateUser(user);
+        return "redirect:/users";
+    }
+
+    @GetMapping("{id}/edit")
+    public String edit(@PathVariable UUID id, Model model) {
+        User user = new User();
+        user.setId(id);
+        model.addAttribute("user", user);
+        return  "users/edit";
     }
 }

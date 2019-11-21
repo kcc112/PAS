@@ -10,6 +10,7 @@ public interface IUserRepository {
 
     void addUser(UUID id, User user);
     void destroyUser(UUID id);
+    void updateUser(User user);
     Optional<User> selectUserById(UUID id);
     List<User> getAllUsers();
 

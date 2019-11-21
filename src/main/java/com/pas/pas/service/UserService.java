@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -48,5 +49,28 @@ public class UserService implements IUserService {
     @Override
     public void destroyUser(UUID id) {
         userRepository.destroyUser(id);
+    }
+
+    @Override
+    public void updateUser(User user) {
+//        Optional<User> userToUpdate = userRepository.selectUserById(user.getId());
+//        if (userToUpdate.isPresent()) {
+//            if(!user.getUserType().isBlank()) {
+//                String type = user.getUserType();
+//                userToUpdate.get().setUserType(type);
+//            }
+//
+//            if(!user.getUserName().isBlank()) {
+//                String name = user.getUserName();
+//                userToUpdate.get().setUserName(name);
+//            }
+//
+//            if(!user.getUserSurname().isBlank()) {
+//                String surname = user.getUserSurname();
+//                userToUpdate.get().setUserSurname(surname);
+//            }
+//            userRepository.updateUser(userToUpdate.get());
+        userRepository.updateUser(user);
+ //       }
     }
 }
