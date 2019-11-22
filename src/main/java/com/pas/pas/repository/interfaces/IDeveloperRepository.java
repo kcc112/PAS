@@ -9,6 +9,7 @@ import java.util.UUID;
 public interface IDeveloperRepository {
     void addDeveloper(UUID id, Developer developer);
     void destroyDeveloper(UUID id);
+    void updateDeveloper(Developer developer);
     Optional<Developer> selectDeveloperById(UUID id);
     List<Developer> getAllDevelopers();
 

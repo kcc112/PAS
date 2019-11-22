@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <h1>events/new</h1>
+<h1>Add Event</h1>
+<form action="#" th:action="@{/events}" th:object="${event}" method="post">
+    <table>
+        <tr>
+            <td>Select user</td>
+        </tr>
+        <tr>
+            <td>
+                <select id="selectUser" th:field="${event.user}">
+                    <option th:each="user : ${users}"
+                            th:value="${user}"
+                            th:text="${user.toString()}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Select developer</td>
+        </tr>
+        <tr>
+            <td>
+                <select id="selectDeveloper" th:field="${event.developer}">
+                    <option th:each="developer : ${developers}"
+                            th:value="${developer}"
+                            th:text="${developer.toString()}"></option>
+                </select>
+            </td>
+        </tr>
+    </table>
+
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
 </body>
 </html>

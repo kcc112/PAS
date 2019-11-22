@@ -28,4 +28,14 @@ public class TechnologyService implements ITechnologyService {
     public Optional<Technology> selectTechnologyByName(String technologyName) {
         return technologyRepository.selectTechnologyByName(technologyName);
     }
+
+    @Override
+    public List<Technology> getAllTechnologiesBackEnd() {
+        return technologyRepository.getAllTechnologiesBackEnd();
+    }
+
+    @Override
+    public List<Technology> getAllTechnologiesFrontEnd() {
+        return technologyRepository.getAllTechnologiesFrontEnd();
+    }
 }

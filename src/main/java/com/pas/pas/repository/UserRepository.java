@@ -1,5 +1,8 @@
 package com.pas.pas.repository;
 
+import com.pas.pas.model.users.Admin;
+import com.pas.pas.model.users.Client;
+import com.pas.pas.model.users.ResourceAdministrator;
 import com.pas.pas.model.users.User;
 import com.pas.pas.repository.interfaces.IUserRepository;
 import org.springframework.stereotype.Repository;
@@ -12,7 +15,18 @@ import java.util.UUID;
 @Repository
 public class UserRepository implements IUserRepository {
 
-    private List<User> users = new ArrayList<>();
+    private List<User> users;
+
+    public UserRepository() {
+        this.users = new ArrayList<>();
+        users.add(new Admin("Kamil", "Celejewski","Admin", randUUID()));
+        users.add(new Client("Marcin", "Morawski","Client", randUUID()));
+        users.add(new ResourceAdministrator("Szymon", "Dobrowolski","ResourceAdministrator", randUUID()));
+    }
+
+    private UUID randUUID() {
+        return UUID.randomUUID();
+    }
 
     @Override
     public void addUser(UUID id, User user) {
@@ -41,9 +55,9 @@ public class UserRepository implements IUserRepository {
     @Override
     public void updateUser(User user) {
         Optional<User> userCurrent = selectUserById(user.getId());
-//        if (userCurrent.isPresent()) {
+        if (userCurrent.isPresent()) {
             int indexOfPersonToUpdate = users.indexOf(userCurrent.get());
             users.set(indexOfPersonToUpdate, user);
-//        }
+        }
     }
 }

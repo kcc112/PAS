@@ -1,5 +1,6 @@
 package com.pas.pas.repository;
 
+import com.pas.pas.model.technologies.NodeJs;
 import com.pas.pas.model.technologies.React;
 import com.pas.pas.model.technologies.RubyOnRails;
 import com.pas.pas.model.technologies.Technology;
@@ -19,6 +20,7 @@ public class TechnologyRepository implements ITechnologyRepository {
         this.technologies = new ArrayList<>();
         technologies.add(new RubyOnRails());
         technologies.add(new React());
+        technologies.add(new NodeJs());
     }
 
     @Override
@@ -31,5 +33,27 @@ public class TechnologyRepository implements ITechnologyRepository {
     @Override
     public List<Technology> getAllTechnologies() {
         return technologies;
+    }
+
+    @Override
+    public List<Technology>  getAllTechnologiesFrontEnd() {
+        List<Technology> frontendTechnologies = new ArrayList<>();
+        for (Technology tech : technologies) {
+            if (tech.getTechnologyName().equals("React")) {
+                frontendTechnologies.add(tech);
+            }
+        }
+        return frontendTechnologies;
+    }
+
+    @Override
+    public List<Technology> getAllTechnologiesBackEnd() {
+        List<Technology> backendTechnologies = new ArrayList<>();
+        for (Technology tech : technologies) {
+            if (tech.getTechnologyName().equals("Ruby On Rails") || tech.getTechnologyName().equals("NodeJs") ) {
+                backendTechnologies.add(tech);
+            }
+        }
+        return backendTechnologies;
     }
 }

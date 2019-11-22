@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <h1>events/index</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Technology</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${events.empty}">
+        <td colspan="2">empty</td>
+    </tr>
+    <tr th:each="event : ${events}">
+        <td>
+            <span th:text="${event.startDate}">Start Date</span>
+        </td>
+        <td>
+            <span th:text="${event.endDate}">End Date</span>
+        </td>
+        <td>
+            <form th:action="@{/events/{id}/delete(id=${event.id})}" th:method="delete">
+                <input type="submit" value="remove" />
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/events/{id}/edit(id=${event.id})}" method="get">
+                <input type="submit" value="edit" />
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<form th:action="@{/events/new}">
+    <input type="submit" value="Add new event" />
+</form>
 </body>
 </html>

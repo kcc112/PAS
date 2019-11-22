@@ -1,5 +1,6 @@
 package com.pas.pas.controllers;
 
+import com.pas.pas.model.developers.Backend;
 import com.pas.pas.model.developers.Developer;
 import com.pas.pas.model.technologies.Technology;
 import com.pas.pas.service.interfaces.IDeveloperService;
@@ -11,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RequestMapping("/developers")
@@ -51,9 +53,38 @@ public class DeveloperController {
         return "redirect:/developers";
     }
 
-    @PostMapping("{id}")
+    @PostMapping("{id}/delete")
     public String destroy(@PathVariable UUID id) {
         developerService.destroyDeveloper(id);
         return "redirect:/developers";
+    }
+
+    @PostMapping("{id}")
+    public String update(@PathVariable UUID id,
+                         @ModelAttribute("developer") Developer developer,
+                         @ModelAttribute("technology") Technology technology) {
+        developer.setId(id);
+        developer.setDeveloperTechnology(technology);
+        developerService.updateDeveloper(developer);
+        return "redirect:/developers";
+    }
+
+    @GetMapping("{id}/edit")
+    public String edit(@PathVariable UUID id, Model model) {
+        Optional<Developer> developer = developerService.selectDeveloperById(id);
+        if (developer.isPresent()) {
+            List<Technology> technologies;
+            if ( developer.get().getClass().equals(Backend.class)) {
+                technologies = technologyService.getAllTechnologiesBackEnd();
+            } else {
+                technologies = technologyService.getAllTechnologiesFrontEnd();
+            }
+            model.addAttribute("technologies", technologies);
+            model.addAttribute("developer", developer.get());
+            model.addAttribute("technology", developer.get().getDeveloperTechnology());
+            return  "developers/edit";
+        } else {
+            return  "redirect:/developers";
+        }
     }
 }

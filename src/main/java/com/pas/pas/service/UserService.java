@@ -24,17 +24,22 @@ public class UserService implements IUserService {
     }
 
     public void addUser(User user) {
+        String userName = user.getUserName();
+        String userSurname = user.getUserSurname();
+        String userType = user.getUserType();
+        UUID id = user.getId();
+
         switch (user.getUserType()) {
             case "Admin":
-                user = new Admin(user.getUserName(), user.getUserSurname(), user.getUserType(), user.getId());
+                user = new Admin(userName, userSurname, userType, id);
                 userRepository.addUser(user);
                 break;
             case "Client":
-                user = new Client(user.getUserName(), user.getUserSurname(), user.getUserType(), user.getId());
+                user = new Client(userName, userSurname, userType, id);
                 userRepository.addUser(user);
                 break;
             case "ResourceAdministrator":
-                user = new ResourceAdministrator(user.getUserName(), user.getUserSurname(), user.getUserType(), user.getId());
+                user = new ResourceAdministrator(userName, userSurname, userType, id);
                 userRepository.addUser(user);
                 break;
             default:
@@ -53,24 +58,20 @@ public class UserService implements IUserService {
 
     @Override
     public void updateUser(User user) {
-//        Optional<User> userToUpdate = userRepository.selectUserById(user.getId());
-//        if (userToUpdate.isPresent()) {
-//            if(!user.getUserType().isBlank()) {
-//                String type = user.getUserType();
-//                userToUpdate.get().setUserType(type);
-//            }
-//
-//            if(!user.getUserName().isBlank()) {
-//                String name = user.getUserName();
-//                userToUpdate.get().setUserName(name);
-//            }
-//
-//            if(!user.getUserSurname().isBlank()) {
-//                String surname = user.getUserSurname();
-//                userToUpdate.get().setUserSurname(surname);
-//            }
-//            userRepository.updateUser(userToUpdate.get());
-        userRepository.updateUser(user);
- //       }
+        Optional<User> currentUser = userRepository.selectUserById(user.getId());
+
+        if (currentUser.isPresent()) {
+
+            if(!user.getUserName().isBlank()) {
+                String name = user.getUserName();
+                currentUser.get().setUserName(name);
+            }
+
+            if(!user.getUserSurname().isBlank()) {
+                String surname = user.getUserSurname();
+                currentUser.get().setUserSurname(surname);
+            }
+            userRepository.updateUser(currentUser.get());
+        }
     }
 }

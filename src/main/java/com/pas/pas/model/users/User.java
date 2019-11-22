@@ -52,4 +52,9 @@ public class User {
     public void setId(UUID id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return userName + " " + userSurname + " " + userType;
+    }
 }
