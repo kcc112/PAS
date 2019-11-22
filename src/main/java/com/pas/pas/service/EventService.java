@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -29,11 +30,21 @@ public class EventService implements IEventService {
     public void addEvent(Event event) {
         LocalDate date = LocalDate.now();
         event.setStartData(date);
+        event.setOngoing(true);
         eventRepository.addEvent(event);
     }
 
     @Override
     public void destroyEvent(UUID id) {
         eventRepository.destroyEvent(id);
+    }
+
+    @Override
+    public void finishEvent(UUID id) {
+        Optional<Event> event = eventRepository.selectEventById(id);
+        if (event.isPresent()) {
+            event.get().setOngoing(false);
+            event.get().setEndData(LocalDate.now());
+        }
     }
 }

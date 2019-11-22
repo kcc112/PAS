@@ -9,4 +9,5 @@ public interface IEventService {
     List<Event> getAllEvents();
     void addEvent(Event event);
     void destroyEvent(UUID id);
+    void finishEvent(UUID id);
 }

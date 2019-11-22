@@ -55,7 +55,7 @@ public class EventController {
 
     @PostMapping
     private String create(@Validated @ModelAttribute("event") Event event,
-                          @ModelAttribute("id") Developer developer,
+                          @ModelAttribute("developer") Developer developer,
                           @ModelAttribute("user") User user) {
         Optional<Developer> developerToSet = developerService.selectDeveloperById(developer.getDeveloperId());
         Optional<User> userToSet = userService.selectUserById(user.getUserId());
@@ -71,6 +71,12 @@ public class EventController {
     @PostMapping("{id}")
     public String destroy(@PathVariable UUID id) {
         eventService.destroyEvent(id);
+        return "redirect:/events";
+    }
+
+    @PostMapping("{id}/end")
+    public String endEvent(@PathVariable UUID id) {
+        eventService.finishEvent(id);
         return "redirect:/events";
     }
 }

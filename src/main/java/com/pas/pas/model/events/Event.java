@@ -12,12 +12,14 @@ public class Event {
     private Developer developer;
     private LocalDate startData;
     private LocalDate endData;
+    private Boolean ongoing;
 
-    public Event(UUID id, User user, Developer developer, LocalDate startData) {
+    public Event(UUID id, User user, Developer developer, LocalDate startData, Boolean ongoing) {
         this.id = id;
         this.user = user;
         this.developer = developer;
         this.startData = startData;
+        this.ongoing = ongoing;
         this.endData = null;
     }
 
@@ -61,5 +63,13 @@ public class Event {
 
     public void setEndData(LocalDate endData) {
         this.endData = endData;
+    }
+
+    public Boolean getOngoing() {
+        return ongoing;
+    }
+
+    public void setOngoing(Boolean ongoing) {
+        this.ongoing = ongoing;
     }
 }
