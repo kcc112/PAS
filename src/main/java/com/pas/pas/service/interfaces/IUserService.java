@@ -3,6 +3,7 @@ package com.pas.pas.service.interfaces;
 import com.pas.pas.model.users.User;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface IUserService {
@@ -12,4 +13,5 @@ public interface IUserService {
     void updateUser(User user);
     List<User> getAllAdmins();
     List<User> getAllClients();
+    Optional<User> selectUserById(UUID id);
 }

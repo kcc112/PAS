@@ -43,7 +43,7 @@ public class DeveloperService implements IDeveloperService {
                 String developerName = developer.getDeveloperName();
                 String developerSurname = developer.getDeveloperSurname();
                 Technology developerTechnology = developer.getDeveloperTechnology();
-                UUID id = developer.getId();
+                UUID id = developer.getDeveloperId();
 
                 switch (developer.getDeveloperTechnology().getTechnologyName()) {
                     case "Ruby On Rails":
@@ -67,7 +67,7 @@ public class DeveloperService implements IDeveloperService {
 
     @Override
     public void updateDeveloper(Developer developer) {
-        Optional<Developer> currentUser = developerRepository.selectDeveloperById(developer.getId());
+        Optional<Developer> currentUser = developerRepository.selectDeveloperById(developer.getDeveloperId());
 
         if (currentUser.isPresent()) {
 

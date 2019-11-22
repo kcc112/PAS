@@ -63,7 +63,7 @@ public class DeveloperController {
     public String update(@PathVariable UUID id,
                          @ModelAttribute("developer") Developer developer,
                          @ModelAttribute("technology") Technology technology) {
-        developer.setId(id);
+        developer.setDeveloperId(id);
         developer.setDeveloperTechnology(technology);
         developerService.updateDeveloper(developer);
         return "redirect:/developers";

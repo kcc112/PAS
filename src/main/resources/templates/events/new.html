@@ -13,9 +13,9 @@
         </tr>
         <tr>
             <td>
-                <select id="selectUser" th:field="${event.user}">
+                <select id="selectUser" th:field="${user.userId}">
                     <option th:each="user : ${users}"
-                            th:value="${user}"
+                            th:value="${user.userId}"
                             th:text="${user.toString()}"></option>
                 </select>
             </td>
@@ -25,9 +25,9 @@
         </tr>
         <tr>
             <td>
-                <select id="selectDeveloper" th:field="${event.developer}">
+                <select id="selectDeveloper" th:field="${developer.developerId}">
                     <option th:each="developer : ${developers}"
-                            th:value="${developer}"
+                            th:value="${developer.developerId}"
                             th:text="${developer.toString()}"></option>
                 </select>
             </td>

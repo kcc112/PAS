@@ -6,6 +6,7 @@ import com.pas.pas.service.interfaces.IEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,6 +27,8 @@ public class EventService implements IEventService {
 
     @Override
     public void addEvent(Event event) {
+        LocalDate date = LocalDate.now();
+        event.setStartData(date);
         eventRepository.addEvent(event);
     }
 

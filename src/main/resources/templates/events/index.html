@@ -8,9 +8,10 @@
 <table>
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Technology</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>User</th>
+        <th>Developer</th>
     </tr>
     </thead>
     <tbody>
@@ -19,10 +20,16 @@
     </tr>
     <tr th:each="event : ${events}">
         <td>
-            <span th:text="${event.startDate}">Start Date</span>
+            <span th:text="${event.startData}">Start Date</span>
         </td>
         <td>
-            <span th:text="${event.endDate}">End Date</span>
+            <span th:text="${event.endData}">End Date</span>
+        </td>
+        <td>
+            <span th:text="${event.user.userName}">User</span>
+        </td>
+        <td>
+            <span th:text="${event.developer}">Developer</span>
         </td>
         <td>
             <form th:action="@{/events/{id}/delete(id=${event.id})}" th:method="delete">

@@ -10,13 +10,13 @@ public class User {
     @NotBlank
     private String userSurname;
     private String userType;
-    private UUID id;
+    private UUID userId;
 
-    User(String userName, String userSurname, String userType, UUID id) {
+    User(String userName, String userSurname, String userType, UUID userId) {
         this.userName = userName;
         this.userSurname = userSurname;
         this.userType = userType;
-        this.id = id;
+        this.userId = userId;
     }
 
     public User() {}
@@ -45,12 +45,12 @@ public class User {
         this.userType = userType;
     }
 
-    public UUID getId() {
-        return id;
+    public UUID getUserId() {
+        return userId;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 
     @Override

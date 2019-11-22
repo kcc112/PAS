@@ -30,7 +30,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public void addUser(UUID id, User user) {
-        user.setId(id);
+        user.setUserId(id);
         users.add(user);
     }
 
@@ -42,7 +42,7 @@ public class UserRepository implements IUserRepository {
     @Override
     public Optional<User> selectUserById(UUID id) {
         return users.stream()
-                .filter(user -> user.getId().equals(id))
+                .filter(user -> user.getUserId().equals(id))
                 .findFirst();
     }
 
@@ -54,7 +54,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public void updateUser(User user) {
-        Optional<User> userCurrent = selectUserById(user.getId());
+        Optional<User> userCurrent = selectUserById(user.getUserId());
         if (userCurrent.isPresent()) {
             int indexOfPersonToUpdate = users.indexOf(userCurrent.get());
             users.set(indexOfPersonToUpdate, user);

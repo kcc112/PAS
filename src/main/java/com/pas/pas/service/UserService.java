@@ -4,7 +4,6 @@ import com.pas.pas.model.users.Admin;
 import com.pas.pas.model.users.Client;
 import com.pas.pas.model.users.ResourceAdministrator;
 import com.pas.pas.model.users.User;
-import com.pas.pas.repository.UserRepository;
 import com.pas.pas.repository.interfaces.IUserRepository;
 import com.pas.pas.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class UserService implements IUserService {
         String userName = user.getUserName();
         String userSurname = user.getUserSurname();
         String userType = user.getUserType();
-        UUID id = user.getId();
+        UUID id = user.getUserId();
 
         switch (user.getUserType()) {
             case "Admin":
@@ -59,7 +58,7 @@ public class UserService implements IUserService {
 
     @Override
     public void updateUser(User user) {
-        Optional<User> currentUser = userRepository.selectUserById(user.getId());
+        Optional<User> currentUser = userRepository.selectUserById(user.getUserId());
 
         if (currentUser.isPresent()) {
 
@@ -84,5 +83,10 @@ public class UserService implements IUserService {
     @Override
     public List<User> getAllClients() {
         return userRepository.getAllClients();
+    }
+
+    @Override
+    public Optional<User> selectUserById(UUID id) {
+        return userRepository.selectUserById(id);
     }
 }

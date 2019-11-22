@@ -32,7 +32,7 @@ public class DeveloperRepository implements IDeveloperRepository {
 
     @Override
     public void addDeveloper(UUID id, Developer developer) {
-        developer.setId(id);
+        developer.setDeveloperId(id);
         developers.add(developer);
     }
 
@@ -45,7 +45,7 @@ public class DeveloperRepository implements IDeveloperRepository {
     @Override
     public Optional<Developer> selectDeveloperById(UUID id) {
         return developers.stream()
-                .filter(user -> user.getId().equals(id))
+                .filter(user -> user.getDeveloperId().equals(id))
                 .findFirst();
     }
 
@@ -56,7 +56,7 @@ public class DeveloperRepository implements IDeveloperRepository {
 
     @Override
     public void updateDeveloper(Developer developer) {
-        Optional<Developer> userCurrent = selectDeveloperById(developer.getId());
+        Optional<Developer> userCurrent = selectDeveloperById(developer.getDeveloperId());
         if (userCurrent.isPresent()) {
             int indexOfPersonToUpdate = developers.indexOf(userCurrent.get());
             developers.set(indexOfPersonToUpdate, developer);

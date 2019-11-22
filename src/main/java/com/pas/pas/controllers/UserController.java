@@ -50,7 +50,7 @@ public class UserController {
 
     @PostMapping("{id}")
     public String update(@PathVariable UUID id, @ModelAttribute("user") User user) {
-        user.setId(id);
+        user.setUserId(id);
         userService.updateUser(user);
         return "redirect:/users";
     }
@@ -58,7 +58,7 @@ public class UserController {
     @GetMapping("{id}/edit")
     public String edit(@PathVariable UUID id, Model model) {
         User user = new User();
-        user.setId(id);
+        user.setUserId(id);
         model.addAttribute("user", user);
         return  "users/edit";
     }

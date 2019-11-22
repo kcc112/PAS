@@ -28,12 +28,12 @@
                     <span th:text="${user.userType}">Type</span>
                 </td>
                 <td>
-                    <form th:action="@{/users/{id}/delete(id=${user.id})}" method="post">
+                    <form th:action="@{/users/{id}/delete(id=${user.userId})}" method="post">
                         <input type="submit" value="remove" />
                     </form>
                 </td>
                 <td>
-                    <form th:action="@{/users/{id}/edit(id=${user.id})}" method="get">
+                    <form th:action="@{/users/{id}/edit(id=${user.userId})}" method="get">
                         <input type="submit" value="edit" />
                     </form>
                 </td>

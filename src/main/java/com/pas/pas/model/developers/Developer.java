@@ -11,13 +11,13 @@ public class Developer {
     @NotBlank
     private String developerSurname;
     private Technology developerTechnology;
-    private UUID id;
+    private UUID developerId;
 
-    Developer(String developerName, String developerSurname, Technology developerTechnology, UUID id) {
+    Developer(String developerName, String developerSurname, Technology developerTechnology, UUID developerId) {
         this.developerName = developerName;
         this.developerSurname = developerSurname;
         this.developerTechnology = developerTechnology;
-        this.id = id;
+        this.developerId = developerId;
     }
 
     public Developer() { }
@@ -46,12 +46,12 @@ public class Developer {
         this.developerTechnology = developerTechnology;
     }
 
-    public UUID getId() {
-        return id;
+    public UUID getDeveloperId() {
+        return developerId;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setDeveloperId(UUID developerId) {
+        this.developerId = developerId;
     }
 
     @Override

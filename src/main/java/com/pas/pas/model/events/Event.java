@@ -3,17 +3,17 @@ package com.pas.pas.model.events;
 import com.pas.pas.model.developers.Developer;
 import com.pas.pas.model.users.User;
 
-import javax.xml.crypto.Data;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class Event {
     private UUID id;
     private User user;
     private Developer developer;
-    private Data startData;
-    private Data endData;
+    private LocalDate startData;
+    private LocalDate endData;
 
-    public Event(UUID id, User user, Developer developer, Data startData) {
+    public Event(UUID id, User user, Developer developer, LocalDate startData) {
         this.id = id;
         this.user = user;
         this.developer = developer;
@@ -39,11 +39,11 @@ public class Event {
         return developer;
     }
 
-    public Data getStartData() {
+    public LocalDate getStartData() {
         return startData;
     }
 
-    public void setStartData(Data startData) {
+    public void setStartData(LocalDate startData) {
         this.startData = startData;
     }
 
@@ -55,11 +55,11 @@ public class Event {
         this.user = user;
     }
 
-    public Data getEndData() {
+    public LocalDate getEndData() {
         return endData;
     }
 
-    public void setEndData(Data endData) {
+    public void setEndData(LocalDate endData) {
         this.endData = endData;
     }
 }

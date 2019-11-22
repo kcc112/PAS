@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RequestMapping("/events")
@@ -40,17 +41,30 @@ public class EventController {
     @GetMapping("new")
     public String newForm(Model model) {
         Event event = new Event();
+        User user = new User();
+        Developer developer = new Developer();
         List<Developer> developers = developerService.getAllDevelopers();
         List<User> users = userService.getAllClients();
         model.addAttribute("users", users);
         model.addAttribute("developers", developers);
+        model.addAttribute("user", user);
+        model.addAttribute("developer", developer);
         model.addAttribute("event", event);
         return  "events/new";
     }
 
     @PostMapping
-    private String create(@Validated @ModelAttribute("event") Event event) {
-        eventService.addEvent(event);
+    private String create(@Validated @ModelAttribute("event") Event event,
+                          @ModelAttribute("id") Developer developer,
+                          @ModelAttribute("user") User user) {
+        Optional<Developer> developerToSet = developerService.selectDeveloperById(developer.getDeveloperId());
+        Optional<User> userToSet = userService.selectUserById(user.getUserId());
+
+        if (developerToSet.isPresent() && userToSet.isPresent()) {
+            event.setUser(userToSet.get());
+            event.setDeveloper(developerToSet.get());
+            eventService.addEvent(event);
+        }
         return "redirect:/events";
     }
 

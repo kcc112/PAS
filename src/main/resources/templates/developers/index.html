@@ -28,12 +28,12 @@
                 <span th:text="${developer.developerTechnology.technologyName}">Developer</span>
             </td>
             <td>
-                <form th:action="@{/developers/{id}/delete(id=${developer.id})}" th:method="delete">
+                <form th:action="@{/developers/{id}/delete(id=${developer.developerId})}" th:method="post">
                     <input type="submit" value="remove" />
                 </form>
             </td>
             <td>
-                <form th:action="@{/developers/{id}/edit(id=${developer.id})}" method="get">
+                <form th:action="@{/developers/{id}/edit(id=${developer.developerId})}" method="get">
                     <input type="submit" value="edit" />
                 </form>
             </td>
