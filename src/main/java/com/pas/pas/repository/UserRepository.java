@@ -60,4 +60,27 @@ public class UserRepository implements IUserRepository {
             users.set(indexOfPersonToUpdate, user);
         }
     }
+
+
+    @Override
+    public List<User> getAllAdmins() {
+        List<User> admins = new ArrayList<>();
+        for (User user : users) {
+            if (user.getClass().equals(Admin.class)) {
+                admins.add(user);
+            }
+        }
+        return admins;
+    }
+
+    @Override
+    public List<User> getAllClients() {
+        List<User> clients = new ArrayList<>();
+        for (User user : users) {
+            if (user.getClass().equals(Client.class)) {
+                clients.add(user);
+            }
+        }
+        return clients;
+    }
 }

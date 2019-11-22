@@ -4,6 +4,7 @@ import com.pas.pas.model.users.Admin;
 import com.pas.pas.model.users.Client;
 import com.pas.pas.model.users.ResourceAdministrator;
 import com.pas.pas.model.users.User;
+import com.pas.pas.repository.UserRepository;
 import com.pas.pas.repository.interfaces.IUserRepository;
 import com.pas.pas.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,5 +74,15 @@ public class UserService implements IUserService {
             }
             userRepository.updateUser(currentUser.get());
         }
+    }
+
+    @Override
+    public List<User> getAllAdmins() {
+        return userRepository.getAllAdmins();
+    }
+
+    @Override
+    public List<User> getAllClients() {
+        return userRepository.getAllClients();
     }
 }

@@ -41,7 +41,7 @@ public class EventController {
     public String newForm(Model model) {
         Event event = new Event();
         List<Developer> developers = developerService.getAllDevelopers();
-        List<User> users = userService.getAllUsers();
+        List<User> users = userService.getAllClients();
         model.addAttribute("users", users);
         model.addAttribute("developers", developers);
         model.addAttribute("event", event);

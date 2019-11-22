@@ -10,4 +10,6 @@ public interface IUserService {
     void addUser(User user);
     void destroyUser(UUID id);
     void updateUser(User user);
+    List<User> getAllAdmins();
+    List<User> getAllClients();
 }
