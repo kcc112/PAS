@@ -39,7 +39,7 @@ public class TechnologyRepository implements ITechnologyRepository {
     public List<Technology>  getAllTechnologiesFrontEnd() {
         List<Technology> frontendTechnologies = new ArrayList<>();
         for (Technology tech : technologies) {
-            if (tech.getTechnologyName().equals("React")) {
+            if (tech.getClass().equals(React.class)) {
                 frontendTechnologies.add(tech);
             }
         }
@@ -50,7 +50,7 @@ public class TechnologyRepository implements ITechnologyRepository {
     public List<Technology> getAllTechnologiesBackEnd() {
         List<Technology> backendTechnologies = new ArrayList<>();
         for (Technology tech : technologies) {
-            if (tech.getTechnologyName().equals("Ruby On Rails") || tech.getTechnologyName().equals("NodeJs") ) {
+            if (tech.getClass().equals(RubyOnRails.class) || tech.getClass().equals(NodeJs.class)) {
                 backendTechnologies.add(tech);
             }
         }

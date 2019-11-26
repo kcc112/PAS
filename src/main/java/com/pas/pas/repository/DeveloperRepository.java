@@ -25,9 +25,9 @@ public class DeveloperRepository implements IDeveloperRepository {
         Technology rubyOnRails = new RubyOnRails();
         Technology react = new React();
         Technology nodeJs = new NodeJs();
-        developers.add(new Backend("Ernest","Kowalski", rubyOnRails, HelperMethods.randUUID()));
-        developers.add(new FrontEnd("Wiktor","Kowalski", react, HelperMethods.randUUID()));
-        developers.add(new Backend("Bartek","Kowalski", nodeJs, HelperMethods.randUUID()));
+        developers.add(new Backend("Ernest","Kowalski", rubyOnRails, UUID.randomUUID()));
+        developers.add(new FrontEnd("Wiktor","Kowalski", react, UUID.randomUUID()));
+        developers.add(new Backend("Bartek","Kowalski", nodeJs, UUID.randomUUID()));
     }
 
     @Override

@@ -46,13 +46,13 @@ public class UserController {
     }
 
     @PostMapping("{id}/delete")
-    public String destroy(@PathVariable UUID id) {
+    private String destroy(@PathVariable UUID id) {
         userService.destroyUser(id);
         return "redirect:/users";
     }
 
     @PostMapping("{id}")
-    public String update(@PathVariable UUID id, @ModelAttribute("user") User user) {
+    private String update(@PathVariable UUID id, @ModelAttribute("user") User user) {
         user.setUserId(id);
         userService.updateUser(user);
         return "redirect:/users";

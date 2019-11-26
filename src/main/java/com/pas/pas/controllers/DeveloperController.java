@@ -58,13 +58,13 @@ public class DeveloperController {
     }
 
     @PostMapping("{id}/delete")
-    public String destroy(@PathVariable UUID id) {
+    private String destroy(@PathVariable UUID id) {
         developerService.destroyDeveloper(id);
         return "redirect:/developers";
     }
 
     @PostMapping("{id}")
-    public String update(@PathVariable UUID id,
+    private String update(@PathVariable UUID id,
                          @ModelAttribute("developer") Developer developer,
                          @ModelAttribute("technology") Technology technology) {
         developer.setDeveloperId(id);
