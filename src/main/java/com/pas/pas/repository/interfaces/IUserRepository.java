@@ -12,9 +12,8 @@ public interface IUserRepository {
     void destroyUser(UUID id);
     void updateUser(User user);
     Optional<User> selectUserById(UUID id);
-    List<User> getAllClients();
-    List<User> getAllAdmins();
     List<User> getAllUsers();
+    List<User> getAllActiveClients();
 
     default void addUser(User user) {
         UUID id = UUID.randomUUID();

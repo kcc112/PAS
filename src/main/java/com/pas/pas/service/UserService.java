@@ -76,13 +76,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<User> getAllAdmins() {
-        return userRepository.getAllAdmins();
-    }
-
-    @Override
-    public List<User> getAllClients() {
-        return userRepository.getAllClients();
+    public List<User> getAllActiveClients() {
+        return userRepository.getAllActiveClients();
     }
 
     @Override

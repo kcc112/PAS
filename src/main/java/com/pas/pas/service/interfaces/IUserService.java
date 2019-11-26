@@ -12,7 +12,6 @@ public interface IUserService {
     void destroyUser(UUID id);
     void updateUser(User user);
     void activateOrDeactivateUser(UUID id);
-    List<User> getAllAdmins();
-    List<User> getAllClients();
+    List<User> getAllActiveClients();
     Optional<User> selectUserById(UUID id);
 }

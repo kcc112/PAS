@@ -44,7 +44,7 @@ public class EventController {
         User user = new User();
         Developer developer = new Developer();
         List<Developer> developers = developerService.getAllDevelopers();
-        List<User> users = userService.getAllClients();
+        List<User> users = userService.getAllActiveClients();
         model.addAttribute("users", users);
         model.addAttribute("developers", developers);
         model.addAttribute("user", user);

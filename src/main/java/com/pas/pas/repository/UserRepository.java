@@ -62,20 +62,19 @@ public class UserRepository implements IUserRepository {
         }
     }
 
-
     @Override
-    public List<User> getAllAdmins() {
-        List<User> admins = new ArrayList<>();
-        for (User user : users) {
-            if (user.getClass().equals(Admin.class)) {
-                admins.add(user);
+    public List<User> getAllActiveClients() {
+        List<User> activeClients = new ArrayList<>();
+        List<User> clients = getAllClients();
+        for (User client : clients) {
+            if (client.getIsActive()) {
+                activeClients.add(client);
             }
         }
-        return admins;
+        return activeClients;
     }
 
-    @Override
-    public List<User> getAllClients() {
+    private List<User> getAllClients() {
         List<User> clients = new ArrayList<>();
         for (User user : users) {
             if (user.getClass().equals(Client.class)) {
