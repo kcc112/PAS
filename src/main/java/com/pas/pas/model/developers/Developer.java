@@ -3,14 +3,24 @@ package com.pas.pas.model.developers;
 import com.pas.pas.model.technologies.Technology;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.UUID;
 
 public class Developer {
-    @NotBlank
+
+    @NotBlank(message = "Name is mandatory")
+    @Size(min = 3, max = 12)
+    @Pattern(regexp = "[A-z][a-z]", message = "Invalid name")
     private String developerName;
-    @NotBlank
+
+    @NotBlank(message = "Surname is mandatory")
+    @Size(min = 3, max = 12)
+    @Pattern(regexp = "[A-z][a-z]", message = "Invalid surname")
     private String developerSurname;
+
     private Technology developerTechnology;
+
     private UUID developerId;
 
     Developer(String developerName, String developerSurname, Technology developerTechnology, UUID developerId) {

@@ -1,15 +1,25 @@
 package com.pas.pas.model.users;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.UUID;
 
 public class User {
 
-    @NotBlank
+    @NotBlank(message = "Name is mandatory")
+    @Size(min = 3, max = 12)
+    @Pattern(regexp = "[A-z][a-z]", message = "Invalid name")
     private String userName;
-    @NotBlank
+
+    @NotBlank(message = "Surname is mandatory")
+    @Size(min = 3, max = 12)
+    @Pattern(regexp = "[A-z][a-z]", message = "Invalid surname")
     private String userSurname;
+
+    @NotBlank
     private String userType;
+
     private UUID userId;
     private boolean isActive;
 

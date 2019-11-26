@@ -9,8 +9,10 @@
     <form action="#" th:action="@{/developers}" th:object="${developer}" method="post">
         <label for="developerName" title="Name">Developer name</label>
         <p><input id="developerName" type="text" th:field="${developer.developerName}"/></p>
+        <p th:if="${#fields.hasErrors('developerName')}" th:errors="*{developerName}"></p>
         <label for="developerSurname" title="Surname">Developer surname</label>
         <p><input id="developerSurname" type="text" th:field="${developer.developerSurname}" /></p>
+        <p th:if="${#fields.hasErrors('developerSurname')}" th:errors="*{developerSurname}"></p>
 
         <table>
             <tr>

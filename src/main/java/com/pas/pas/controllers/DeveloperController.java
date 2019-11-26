@@ -8,6 +8,7 @@ import com.pas.pas.service.interfaces.ITechnologyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,7 +49,9 @@ public class DeveloperController {
 
     @PostMapping
     private String create(@Validated @ModelAttribute("developer") Developer developer,
+                          BindingResult bindingResult,
                           @ModelAttribute("technology") Technology technology) {
+        if (bindingResult.hasErrors()) return "developers/new";
         developerService.addDeveloper(developer, technology);
         return "redirect:/developers";
     }
