@@ -51,7 +51,8 @@ public class DeveloperController {
     private String create(@Validated @ModelAttribute("developer") Developer developer,
                           BindingResult bindingResult,
                           @ModelAttribute("technology") Technology technology) {
-        if (bindingResult.hasErrors()) return "developers/new";
+        if (bindingResult.hasErrors())
+            return "developers/new";
         developerService.addDeveloper(developer, technology);
         return "redirect:/developers";
     }

@@ -39,7 +39,8 @@ public class UserController {
 
     @PostMapping
     private String create(@Validated @ModelAttribute("user") User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) return "users/new";
+        if (bindingResult.hasErrors())
+            return "users/new";
         userService.addUser(user);
         return "redirect:/users";
     }

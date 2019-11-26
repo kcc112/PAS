@@ -9,12 +9,12 @@ public class User {
 
     @NotBlank(message = "Name is mandatory")
     @Size(min = 3, max = 12)
-    @Pattern(regexp = "[A-z][a-z]", message = "Invalid name")
+    @Pattern(regexp = "[A-Z][a-z]*", message = "Invalid name")
     private String userName;
 
     @NotBlank(message = "Surname is mandatory")
     @Size(min = 3, max = 12)
-    @Pattern(regexp = "[A-z][a-z]", message = "Invalid surname")
+    @Pattern(regexp = "[A-Z][a-z]*", message = "Invalid surname")
     private String userSurname;
 
     @NotBlank
