@@ -11,12 +11,14 @@ public class User {
     private String userSurname;
     private String userType;
     private UUID userId;
+    private boolean isActive;
 
-    User(String userName, String userSurname, String userType, UUID userId) {
+    User(String userName, String userSurname, String userType, UUID userId, boolean isActive) {
         this.userName = userName;
         this.userSurname = userSurname;
         this.userType = userType;
         this.userId = userId;
+        this.isActive = isActive;
     }
 
     public User() {}
@@ -51,6 +53,14 @@ public class User {
 
     public void setUserId(UUID userId) {
         this.userId = userId;
+    }
+
+    public boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     @Override

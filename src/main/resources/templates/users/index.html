@@ -11,6 +11,7 @@
                 <th>Name</th>
                 <th>Surname</th>
                 <th>Type</th>
+                <th>Is Active</th>
             </tr>
         </thead>
         <tbody>
@@ -19,13 +20,16 @@
             </tr>
             <tr th:each="user : ${users}">
                 <td>
-                    <span th:text="${user.userName}">Name</span>
+                    <span th:text="${user.userName}"></span>
                 </td>
                 <td>
-                    <span th:text="${user.userSurname}">Surname</span>
+                    <span th:text="${user.userSurname}"></span>
                 </td>
                 <td>
-                    <span th:text="${user.userType}">Type</span>
+                    <span th:text="${user.userType}"></span>
+                </td>
+                <td>
+                    <span th:text="${user.isActive}"></span>
                 </td>
                 <td>
                     <form th:action="@{/users/{id}/delete(id=${user.userId})}" method="post">
@@ -35,6 +39,11 @@
                 <td>
                     <form th:action="@{/users/{id}/edit(id=${user.userId})}" method="get">
                         <input type="submit" value="edit" />
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/users/{id}/activate-or-deactivate(id=${user.userId})}" method="get">
+                        <input type="submit" value="activate or deactivate" />
                     </form>
                 </td>
             </tr>

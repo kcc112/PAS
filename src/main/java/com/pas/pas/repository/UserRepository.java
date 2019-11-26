@@ -19,9 +19,9 @@ public class UserRepository implements IUserRepository {
 
     public UserRepository() {
         this.users = new ArrayList<>();
-        users.add(new Admin("Kamil", "Celejewski","Admin", randUUID()));
-        users.add(new Client("Marcin", "Morawski","Client", randUUID()));
-        users.add(new ResourceAdministrator("Szymon", "Dobrowolski","ResourceAdministrator", randUUID()));
+        users.add(new Admin("Kamil", "Celejewski","Admin", randUUID(), true));
+        users.add(new Client("Marcin", "Morawski","Client", randUUID(), true));
+        users.add(new ResourceAdministrator("Szymon", "Dobrowolski","ResourceAdministrator", randUUID(), true));
     }
 
     private UUID randUUID() {
@@ -31,6 +31,7 @@ public class UserRepository implements IUserRepository {
     @Override
     public void addUser(UUID id, User user) {
         user.setUserId(id);
+        user.setActive(true);
         users.add(user);
     }
 

@@ -62,4 +62,11 @@ public class UserController {
         model.addAttribute("user", user);
         return  "users/edit";
     }
+
+    //Custom controllers region
+    @GetMapping("{id}/activate-or-deactivate")
+    public String activateOrDeactivate(@PathVariable UUID id) {
+        userService.activateOrDeactivateUser(id);
+        return "redirect:/users";
+    }
 }

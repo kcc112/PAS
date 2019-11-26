@@ -31,15 +31,15 @@ public class UserService implements IUserService {
 
         switch (user.getUserType()) {
             case "Admin":
-                user = new Admin(userName, userSurname, userType, id);
+                user = new Admin(userName, userSurname, userType, id, true);
                 userRepository.addUser(user);
                 break;
             case "Client":
-                user = new Client(userName, userSurname, userType, id);
+                user = new Client(userName, userSurname, userType, id, true);
                 userRepository.addUser(user);
                 break;
             case "ResourceAdministrator":
-                user = new ResourceAdministrator(userName, userSurname, userType, id);
+                user = new ResourceAdministrator(userName, userSurname, userType, id, true);
                 userRepository.addUser(user);
                 break;
             default:
@@ -88,5 +88,17 @@ public class UserService implements IUserService {
     @Override
     public Optional<User> selectUserById(UUID id) {
         return userRepository.selectUserById(id);
+    }
+
+    @Override
+    public void activateOrDeactivateUser(UUID id) {
+        Optional<User> userToChange = userRepository.selectUserById(id);
+        userToChange.ifPresent(user -> {
+            if (user.getIsActive()) {
+                user.setActive(false);
+            } else {
+                user.setActive(true);
+            }
+        });
     }
 }
