@@ -28,18 +28,24 @@ public class EventService implements IEventService {
 
     @Override
     public void addEvent(Event event) {
-        if (!event.getUser().getIsActive()) {
+        if (!event.getUser().getIsActive() || event.getDeveloper().isHired()) {
             return;
         }
         LocalDate date = LocalDate.now();
         event.setStartData(date);
         event.setOngoing(true);
+        event.getDeveloper().setHired(true);
         eventRepository.addEvent(event);
     }
 
     @Override
     public void destroyEvent(UUID id) {
-        eventRepository.destroyEvent(id);
+        Optional<Event> event = eventRepository.selectEventById(id);
+        if (event.isPresent()) {
+            if (!event.get().getDeveloper().isHired()) {
+                eventRepository.destroyEvent(id);
+            }
+        }
     }
 
     @Override
@@ -47,6 +53,7 @@ public class EventService implements IEventService {
         Optional<Event> event = eventRepository.selectEventById(id);
         if (event.isPresent()) {
             event.get().setOngoing(false);
+            event.get().getDeveloper().setHired(false);
             event.get().setEndData(LocalDate.now());
         }
     }

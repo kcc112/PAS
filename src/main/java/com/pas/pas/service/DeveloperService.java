@@ -3,8 +3,10 @@ package com.pas.pas.service;
 import com.pas.pas.model.developers.Backend;
 import com.pas.pas.model.developers.Developer;
 import com.pas.pas.model.developers.FrontEnd;
+import com.pas.pas.model.events.Event;
 import com.pas.pas.model.technologies.Technology;
 import com.pas.pas.repository.interfaces.IDeveloperRepository;
+import com.pas.pas.repository.interfaces.IEventRepository;
 import com.pas.pas.repository.interfaces.ITechnologyRepository;
 import com.pas.pas.service.interfaces.IDeveloperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,13 @@ public class DeveloperService implements IDeveloperService {
 
     private final IDeveloperRepository developerRepository;
     private final ITechnologyRepository technologyRepository;
+    private final IEventRepository eventRepository;
 
     @Autowired
-    public DeveloperService(IDeveloperRepository developerRepository, ITechnologyRepository technologyRepository) {
+    public DeveloperService(IDeveloperRepository developerRepository, ITechnologyRepository technologyRepository, IEventRepository eventRepository) {
         this.developerRepository = developerRepository;
         this.technologyRepository = technologyRepository;
+        this.eventRepository = eventRepository;
     }
 
     @Override
@@ -62,7 +66,11 @@ public class DeveloperService implements IDeveloperService {
 
     @Override
     public void destroyDeveloper(UUID id) {
-        developerRepository.destroyDeveloper(id);
+        Optional<Event> event = eventRepository.getEventsWithDevelopId(id);
+        if (event.isPresent()) {
+            event.get().setDeveloper(null);
+            developerRepository.destroyDeveloper(id);
+        }
     }
 
     @Override
@@ -90,5 +98,10 @@ public class DeveloperService implements IDeveloperService {
     @Override
     public Optional<Developer> selectDeveloperById(UUID id) {
         return developerRepository.selectDeveloperById(id);
+    }
+
+    @Override
+    public List<Developer> getAllUnemployedDevelopers() {
+        return developerRepository.getAllUnemployedDevelopers();
     }
 }

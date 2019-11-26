@@ -12,6 +12,7 @@ public interface IDeveloperRepository {
     void updateDeveloper(Developer developer);
     Optional<Developer> selectDeveloperById(UUID id);
     List<Developer> getAllDevelopers();
+    List<Developer> getAllUnemployedDevelopers();
 
     default void addDeveloper(Developer developer) {
         UUID id = UUID.randomUUID();

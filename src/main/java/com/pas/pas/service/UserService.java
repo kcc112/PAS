@@ -31,15 +31,15 @@ public class UserService implements IUserService {
 
         switch (user.getUserType()) {
             case "Admin":
-                user = new Admin(userName, userSurname, userType, id, true);
+                user = new Admin(userName, userSurname, userType, id);
                 userRepository.addUser(user);
                 break;
             case "Client":
-                user = new Client(userName, userSurname, userType, id, true);
+                user = new Client(userName, userSurname, userType, id);
                 userRepository.addUser(user);
                 break;
             case "ResourceAdministrator":
-                user = new ResourceAdministrator(userName, userSurname, userType, id, true);
+                user = new ResourceAdministrator(userName, userSurname, userType, id);
                 userRepository.addUser(user);
                 break;
             default:

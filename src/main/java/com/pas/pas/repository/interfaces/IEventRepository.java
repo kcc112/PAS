@@ -11,6 +11,7 @@ public interface IEventRepository {
     void destroyEvent(UUID id);
     Optional<Event> selectEventById(UUID id);
     List<Event> getAllEvents();
+    Optional<Event> getEventsWithDevelopId(UUID id);
 
     default void addEvent(Event event) {
         UUID id = UUID.randomUUID();

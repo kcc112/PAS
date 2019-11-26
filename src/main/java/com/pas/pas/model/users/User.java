@@ -23,12 +23,12 @@ public class User {
     private UUID userId;
     private boolean isActive;
 
-    User(String userName, String userSurname, String userType, UUID userId, boolean isActive) {
+    User(String userName, String userSurname, String userType, UUID userId) {
         this.userName = userName;
         this.userSurname = userSurname;
         this.userType = userType;
         this.userId = userId;
-        this.isActive = isActive;
+        this.isActive = true;
     }
 
     public User() {}

@@ -37,11 +37,6 @@
             </form>
         </td>
         <td>
-            <form th:action="@{/events/{id}/edit(id=${event.id})}" method="get">
-                <input type="submit" value="edit" />
-            </form>
-        </td>
-        <td>
             <form th:action="@{/events/{id}/end(id=${event.id})}" method="post">
                 <input type="submit" value="end" />
             </form>

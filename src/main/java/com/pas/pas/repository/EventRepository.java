@@ -34,6 +34,13 @@ public class EventRepository implements IEventRepository {
     }
 
     @Override
+    public Optional<Event> getEventsWithDevelopId(UUID id) {
+        return events.stream()
+                .filter(event -> event.getDeveloper().getDeveloperId().equals(id))
+                .findFirst();
+    }
+
+    @Override
     public List<Event> getAllEvents() {
         return events;
     }

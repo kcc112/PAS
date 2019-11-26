@@ -62,4 +62,15 @@ public class DeveloperRepository implements IDeveloperRepository {
             developers.set(indexOfPersonToUpdate, developer);
         }
     }
+
+    @Override
+    public List<Developer> getAllUnemployedDevelopers() {
+        List<Developer> unemployedDevelopers = new ArrayList<>();
+        for (Developer developer : developers) {
+            if (!developer.isHired()) {
+                unemployedDevelopers.add(developer);
+            }
+        }
+        return unemployedDevelopers;
+    }
 }

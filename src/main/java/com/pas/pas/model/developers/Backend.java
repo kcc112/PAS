@@ -5,7 +5,7 @@ import com.pas.pas.model.technologies.Technology;
 import java.util.UUID;
 
 public class Backend extends Developer {
-    public Backend(String developerName, String developerSurname, Technology developerTechnology, UUID id) {
-        super(developerName, developerSurname, developerTechnology, id);
+    public Backend(String developerName, String developerSurname, Technology developerTechnology, UUID developerId) {
+        super(developerName, developerSurname, developerTechnology, developerId);
     }
 }

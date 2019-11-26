@@ -43,7 +43,7 @@ public class EventController {
         Event event = new Event();
         User user = new User();
         Developer developer = new Developer();
-        List<Developer> developers = developerService.getAllDevelopers();
+        List<Developer> developers = developerService.getAllUnemployedDevelopers();
         List<User> users = userService.getAllActiveClients();
         model.addAttribute("users", users);
         model.addAttribute("developers", developers);
@@ -68,8 +68,8 @@ public class EventController {
         return "redirect:/events";
     }
 
-    @PostMapping("{id}")
-    public String destroy(@PathVariable UUID id) {
+    @PostMapping("{id}/delete")
+    private String destroy(@PathVariable UUID id) {
         eventService.destroyEvent(id);
         return "redirect:/events";
     }

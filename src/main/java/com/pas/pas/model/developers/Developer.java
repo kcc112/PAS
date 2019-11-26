@@ -20,14 +20,15 @@ public class Developer {
     private String developerSurname;
 
     private Technology developerTechnology;
-
     private UUID developerId;
+    private boolean isHired;
 
     Developer(String developerName, String developerSurname, Technology developerTechnology, UUID developerId) {
         this.developerName = developerName;
         this.developerSurname = developerSurname;
         this.developerTechnology = developerTechnology;
         this.developerId = developerId;
+        this.isHired = false;
     }
 
     public Developer() { }
@@ -62,6 +63,14 @@ public class Developer {
 
     public void setDeveloperId(UUID developerId) {
         this.developerId = developerId;
+    }
+
+    public boolean isHired() {
+        return isHired;
+    }
+
+    public void setHired(boolean hired) {
+        isHired = hired;
     }
 
     @Override
