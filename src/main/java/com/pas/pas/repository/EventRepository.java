@@ -17,13 +17,17 @@ public class EventRepository implements IEventRepository {
     @Override
     public void addEvent(UUID id, Event event) {
         event.setId(id);
-        events.add(event);
+        synchronized (this) {
+            events.add(event);
+        }
     }
 
     @Override
     public void destroyEvent(UUID id) {
         Optional<Event> eventToDelete = selectEventById(id);
-        eventToDelete.ifPresent(event -> events.remove(event));
+        synchronized (this) {
+            eventToDelete.ifPresent(event -> events.remove(event));
+        }
     }
 
     @Override

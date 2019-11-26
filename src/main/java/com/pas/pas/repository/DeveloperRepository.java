@@ -33,13 +33,17 @@ public class DeveloperRepository implements IDeveloperRepository {
     @Override
     public void addDeveloper(UUID id, Developer developer) {
         developer.setDeveloperId(id);
-        developers.add(developer);
+        synchronized (this) {
+            developers.add(developer);
+        }
     }
 
     @Override
     public void destroyDeveloper(UUID id) {
         Optional<Developer> developerToDelete = selectDeveloperById(id);
-        developerToDelete.ifPresent(developer -> developers.remove(developer));
+        synchronized (this) {
+            developerToDelete.ifPresent(developer -> developers.remove(developer));
+        }
     }
 
     @Override
@@ -59,7 +63,9 @@ public class DeveloperRepository implements IDeveloperRepository {
         Optional<Developer> userCurrent = selectDeveloperById(developer.getDeveloperId());
         if (userCurrent.isPresent()) {
             int indexOfPersonToUpdate = developers.indexOf(userCurrent.get());
-            developers.set(indexOfPersonToUpdate, developer);
+            synchronized (this) {
+                developers.set(indexOfPersonToUpdate, developer);
+            }
         }
     }
 

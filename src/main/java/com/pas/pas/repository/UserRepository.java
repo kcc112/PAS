@@ -30,7 +30,9 @@ public class UserRepository implements IUserRepository {
     @Override
     public void addUser(UUID id, User user) {
         user.setUserId(id);
-        users.add(user);
+        synchronized (this) {
+            users.add(user);
+        }
     }
 
     @Override
@@ -48,7 +50,9 @@ public class UserRepository implements IUserRepository {
     @Override
     public void destroyUser(UUID id) {
         Optional<User> userToDelete = selectUserById(id);
-        userToDelete.ifPresent(user -> users.remove(user));
+        synchronized (this) {
+            userToDelete.ifPresent(user -> users.remove(user));
+        }
     }
 
     @Override
@@ -56,7 +60,9 @@ public class UserRepository implements IUserRepository {
         Optional<User> userCurrent = selectUserById(user.getUserId());
         if (userCurrent.isPresent()) {
             int indexOfPersonToUpdate = users.indexOf(userCurrent.get());
-            users.set(indexOfPersonToUpdate, user);
+            synchronized (this) {
+                users.set(indexOfPersonToUpdate, user);
+            }
         }
     }
 
