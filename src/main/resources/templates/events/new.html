@@ -16,7 +16,7 @@
                 <select id="selectUser" th:field="${user.userId}">
                     <option th:each="user : ${users}"
                             th:value="${user.userId}"
-                            th:text="${user.toString()}"></option>
+                            th:text="${user.userName + ' ' + user.userSurname}"></option>
                 </select>
             </td>
         </tr>

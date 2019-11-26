@@ -28,6 +28,9 @@ public class EventService implements IEventService {
 
     @Override
     public void addEvent(Event event) {
+        if (!event.getUser().getIsActive()) {
+            return;
+        }
         LocalDate date = LocalDate.now();
         event.setStartData(date);
         event.setOngoing(true);
