@@ -70,6 +70,8 @@ public class DeveloperService implements IDeveloperService {
         if (event.isPresent()) {
             event.get().setDeveloper(null);
             developerRepository.destroyDeveloper(id);
+        } else {
+            developerRepository.destroyDeveloper(id);
         }
     }
 

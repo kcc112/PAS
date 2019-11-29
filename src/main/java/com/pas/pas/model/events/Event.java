@@ -19,7 +19,6 @@ public class Event {
         this.user = user;
         this.developer = developer;
         this.startData = startData;
-        this.ongoing = ongoing;
         this.endData = null;
     }
 
