@@ -27,7 +27,8 @@ public class UserController {
     public String index(Model model) {
         List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
-        return "users/index";
+        model.addAttribute("page", "users/index");
+        return "application/index";
     }
 
     @GetMapping("new")
