@@ -33,7 +33,7 @@ public class DeveloperController {
     public String index(Model model) {
         List<Developer> developers = developerService.getAllDevelopers();
         model.addAttribute("developers", developers);
-        return "developers/index";
+        return "application/index";
     }
 
     @GetMapping("new")
