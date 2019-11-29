@@ -33,6 +33,7 @@ public class DeveloperController {
     public String index(Model model) {
         List<Developer> developers = developerService.getAllDevelopers();
         model.addAttribute("developers", developers);
+        model.addAttribute("page", "/developers/index");
         return "application/index";
     }
 
@@ -44,7 +45,8 @@ public class DeveloperController {
         model.addAttribute("technologies", technologies);
         model.addAttribute("developer", developer);
         model.addAttribute("technology", technology);
-        return  "developers/new";
+        model.addAttribute("page", "developers/new");
+        return  "application/index";
     }
 
     @PostMapping
@@ -86,9 +88,11 @@ public class DeveloperController {
             model.addAttribute("technologies", technologies);
             model.addAttribute("developer", developer.get());
             model.addAttribute("technology", developer.get().getDeveloperTechnology());
-            return  "developers/edit";
+            model.addAttribute("page", "/developers/edit");
+            return  "/application/index";
         } else {
-            return  "redirect:/developers";
+            model.addAttribute("page", "/developers/index");
+            return  "redirect:/application/index";
         }
     }
 }

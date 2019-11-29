@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <table>
-        <thead>
+<div th:fragment="index" xmlns:th="http://www.w3.org/1999/xhtml">
+    <table class="table">
+        <thead class="thead-dark">
         <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Technology</th>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Technology</th>
+            <th scope="col">Remove</th>
+            <th scope="col">Edit</th>
         </tr>
         </thead>
         <tbody>
@@ -29,19 +25,18 @@
             </td>
             <td>
                 <form th:action="@{/developers/{id}/delete(id=${developer.developerId})}" th:method="post">
-                    <input type="submit" value="remove" />
+                    <input class="btn btn-danger" type="submit" value="remove" />
                 </form>
             </td>
             <td>
-                <form th:action="@{/developers/{id}/edit(id=${developer.developerId})}" method="get">
-                    <input type="submit" value="edit" />
+                <form th:action="@{/developers/{id}/edit(id=${developer.developerId})}" th:method="get">
+                    <input class="btn btn-secondary" type="submit" value="edit" />
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
     <form th:action="@{/developers/new}">
-        <input type="submit" value="Add new developer" />
+        <input class="btn btn-success" type="submit" value="Add new developer" />
     </form>
-</body>
-</html>
+</div>
