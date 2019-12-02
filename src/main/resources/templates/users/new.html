@@ -1,4 +1,4 @@
-<div xmlns:th="http://www.w3.org/1999/xhtml" class="d-flex justify-content-center">
+<div th:fragment="new" xmlns:th="http://www.w3.org/1999/xhtml" class="d-flex justify-content-center">
     <div class="d-flex flex-column">
         <h1>Add User</h1>
         <form class="form-group" action="#" th:action="@{/users}" th:object="${user}" method="post">

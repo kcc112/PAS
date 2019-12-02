@@ -1,4 +1,4 @@
-<div xmlns:th="http://www.w3.org/1999/xhtml" class="d-flex justify-content-center">
+<div th:fragment="edit" xmlns:th="http://www.w3.org/1999/xhtml" class="d-flex justify-content-center">
     <div class="d-flex flex-column">
         <h1>Edit User</h1>
         <form class="form-group" action="#" th:action="@{/users/{id}(id=${user.userId})}" th:object="${user}" method="post">

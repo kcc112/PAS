@@ -1,51 +1,46 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<table>
-    <thead>
-    <tr>
-        <th>Start Date</th>
-        <th>State/End Date</th>
-        <th>User</th>
-        <th>Developer</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:if="${events.empty}">
-        <td colspan="2">empty</td>
-    </tr>
-    <tr th:each="event : ${events}">
-        <td>
-            <span th:text="${event.startData}"></span>
-        </td>
-        <td>
-            <span th:text="${event.endData}" ></span>
-        </td>
-        <td>
-            <span th:text="${event.user.userName}"></span>
-        </td>
-        <td>
-            <span th:text="${event.developer}"></span>
-        </td>
-        <td>
-            <form th:if="${event.endData == null}" th:action="@{/events/{id}/delete(id=${event.id})}" th:method="delete">
-                <input type="submit" value="remove" />
-            </form>
-        </td>
-        <td>
-            <form th:if="${event.endData == null}" th:action="@{/events/{id}/end(id=${event.id})}" method="post">
-                <input type="submit" value="end" />
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<form th:action="@{/events/new}">
-    <input type="submit" value="Add new event" />
-</form>
-</body>
-</html>
+<div th:fragment="index" xmlns:th="http://www.w3.org/1999/xhtml">
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Start Date</th>
+            <th scope="col">State/End Date</th>
+            <th scope="col">User</th>
+            <th scope="col">Developer</th>
+            <th scope="col">Remove</th>
+            <th scope="col">Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${events.empty}">
+            <td colspan="2">empty</td>
+        </tr>
+        <tr th:each="event : ${events}">
+            <td>
+                <span th:text="${event.startData}"></span>
+            </td>
+            <td>
+                <span th:text="${event.endData}" ></span>
+            </td>
+            <td>
+                <span th:text="${event.user.userName}"></span>
+            </td>
+            <td>
+                <span th:text="${event.developer}"></span>
+            </td>
+            <td>
+                <form th:if="${event.endData == null}" th:action="@{/events/{id}/delete(id=${event.id})}" th:method="delete">
+                    <input class="btn btn-danger" type="submit" value="remove" />
+                </form>
+            </td>
+            <td>
+                <form th:if="${event.endData == null}" th:action="@{/events/{id}/end(id=${event.id})}" method="post">
+                    <input class="btn btn-secondary"  type="submit" value="end" />
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <form th:action="@{/events/new}">
+        <input class="btn btn-success" type="submit" value="Add new event" />
+    </form>
+</div>

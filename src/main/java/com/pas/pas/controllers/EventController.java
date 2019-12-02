@@ -35,7 +35,8 @@ public class EventController {
     public String index(Model model) {
         List<Event> events = eventService.getAllEvents();
         model.addAttribute("events", events);
-        return "events/index";
+        model.addAttribute("page", "events/index");
+        return "application/index";
     }
 
     @GetMapping("new")
