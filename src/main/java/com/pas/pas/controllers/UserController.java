@@ -35,7 +35,8 @@ public class UserController {
     public String _new(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        return  "users/new";
+        model.addAttribute("page", "users/new");
+        return  "application/index";
     }
 
     @PostMapping
