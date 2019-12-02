@@ -65,7 +65,8 @@ public class UserController {
         User user = new User();
         user.setUserId(id);
         model.addAttribute("user", user);
-        return  "users/edit";
+        model.addAttribute("page", "users/edit");
+        return "application/index";
     }
 
     //Custom controllers region

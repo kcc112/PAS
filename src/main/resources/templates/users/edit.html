@@ -1,17 +1,13 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Edit User</h1>
-<form action="#" th:action="@{/users/{id}(id=${user.userId})}" th:object="${user}" method="post">
-    <label for="userName" title="Name">User name</label>
-    <p><input id="userName" type="text" th:field="*{userName}"/></p>
-    <label for="userSurname" title="Surname">User surname</label>
-    <p><input id="userSurname" type="text" th:field="*{userSurname}" /></p>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-</form>
-</body>
-</html>
+<div xmlns:th="http://www.w3.org/1999/xhtml" class="d-flex justify-content-center">
+    <div class="d-flex flex-column">
+        <h1>Edit User</h1>
+        <form class="form-group" action="#" th:action="@{/users/{id}(id=${user.userId})}" th:object="${user}" method="post">
+            <label for="userName" title="Name">User name</label>
+            <input class="form-control" id="userName" type="text" th:field="*{userName}"/>
+            <label for="userSurname" title="Surname">User surname</label>
+            <input class="form-control" id="userSurname" type="text" th:field="*{userSurname}" />
+            <input class="btn btn-primary" type="submit" value="Submit" />
+            <input class="btn btn-danger" type="reset" value="Reset" />
+        </form>
+    </div>
+</div>
