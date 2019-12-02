@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div th:fragment="index" xmlns:th="http://www.w3.org/1999/xhtml">
     <div>
-        <table>
-            <thead>
-            <tr>
-                <th>Technology Name</th>
-            </tr>
+        <table class="table">
+            <thead  class="thead-dark">
+                <tr>
+                    <th scope="col">Technology Name</th>
+                </tr>
             </thead>
             <tbody>
             <tr th:if="${technologies.empty}">
@@ -24,5 +18,4 @@
             </tbody>
         </table>
     </div>
-</body>
-</html>
+</div>

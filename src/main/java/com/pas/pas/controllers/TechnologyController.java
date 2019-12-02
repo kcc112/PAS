@@ -24,6 +24,7 @@ public class TechnologyController {
     public String index(Model model) {
         List<Technology> technologies = technologyService.getAllTechnologies();
         model.addAttribute("technologies", technologies);
-        return "technologies/index";
+        model.addAttribute("page", "technologies/index");
+        return "application/index";
     }
 }
