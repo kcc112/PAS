@@ -10,16 +10,15 @@ public class Event {
     private UUID id;
     private User user;
     private Developer developer;
-    private LocalDate startData;
-    private LocalDate endData;
-    private Boolean ongoing;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
-    public Event(UUID id, User user, Developer developer, LocalDate startData, Boolean ongoing) {
+    public Event(UUID id, User user, Developer developer, LocalDate startDate) {
         this.id = id;
         this.user = user;
         this.developer = developer;
-        this.startData = startData;
-        this.endData = null;
+        this.startDate = startDate;
+        this.endDate = null;
     }
 
     public Event() {}
@@ -40,12 +39,12 @@ public class Event {
         return developer;
     }
 
-    public LocalDate getStartData() {
-        return startData;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setStartData(LocalDate startData) {
-        this.startData = startData;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     public void setDeveloper(Developer developer) {
@@ -56,19 +55,11 @@ public class Event {
         this.user = user;
     }
 
-    public LocalDate getEndData() {
-        return endData;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public void setEndData(LocalDate endData) {
-        this.endData = endData;
-    }
-
-    public Boolean getOngoing() {
-        return ongoing;
-    }
-
-    public void setOngoing(Boolean ongoing) {
-        this.ongoing = ongoing;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 }
