@@ -4,10 +4,10 @@
         <form class="form-group" action="#" th:action="@{/users}" th:object="${user}" method="post">
             <label for="userName" title="Name">User name</label>
             <input class="form-control" id="userName" type="text" th:field="*{userName}"/>
-            <p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></p>
+            <div th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="alert alert-danger" role="alert"></div>
             <label for="userSurname" title="Surname">User surname</label>
             <input class="form-control" id="userSurname" type="text" th:field="*{userSurname}" />
-            <p th:if="${#fields.hasErrors('userSurname')}" th:errors="*{userSurname}"></p>
+            <div th:if="${#fields.hasErrors('userSurname')}" th:errors="*{userSurname}" class="alert alert-danger" role="alert"></div>
             <label for="selectType">User Type</label>
             <select class="form-control" id="selectType" th:field="*{userType}">
                 <option value="Admin">Admin</option>

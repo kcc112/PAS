@@ -36,13 +36,15 @@ public class UserController {
         User user = new User();
         model.addAttribute("user", user);
         model.addAttribute("page", "users/new");
-        return  "application/index";
+        return "application/index";
     }
 
     @PostMapping
-    private String create(@Validated @ModelAttribute("user") User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "users/new";
+    private String create(@Validated @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("page", "users/new");
+            return "application/index";
+        }
         userService.addUser(user);
         return "redirect:/users";
     }
