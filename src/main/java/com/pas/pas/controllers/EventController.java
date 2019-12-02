@@ -51,7 +51,8 @@ public class EventController {
         model.addAttribute("user", user);
         model.addAttribute("developer", developer);
         model.addAttribute("event", event);
-        return  "events/new";
+        model.addAttribute("page", "events/new");
+        return  "application/index";
     }
 
     @PostMapping

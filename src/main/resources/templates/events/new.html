@@ -1,40 +1,23 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Add Event</h1>
-<form action="#" th:action="@{/events}" th:object="${event}" method="post">
-    <table>
-        <tr>
-            <td>Select user</td>
-        </tr>
-        <tr>
-            <td>
-                <select id="selectUser" th:field="${user.userId}">
-                    <option th:each="user : ${users}"
-                            th:value="${user.userId}"
-                            th:text="${user.userName + ' ' + user.userSurname}"></option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Select developer</td>
-        </tr>
-        <tr>
-            <td>
-                <select id="selectDeveloper" th:field="${developer.developerId}">
-                    <option th:each="developer : ${developers}"
-                            th:value="${developer.developerId}"
-                            th:text="${developer.toString()}"></option>
-                </select>
-            </td>
-        </tr>
-    </table>
-
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-</form>
-</body>
-</html>
+<div xmlns:th="http://www.w3.org/1999/xhtml" class="d-flex justify-content-center">
+    <div class="d-flex flex-column">
+        <h1>Add Event</h1>
+        <form class="form-group"  action="#" th:action="@{/events}" th:object="${event}" method="post">
+            <label for="selectUser">Select User</label>
+            <select class="form-control" id="selectUser" th:field="${user.userId}">
+                <option th:each="user : ${users}"
+                        th:value="${user.userId}"
+                        th:text="${user.userName + ' ' + user.userSurname}">
+                </option>
+            </select>
+            <label for="selectDeveloper">Select Developer</label>
+            <select class="form-control" id="selectDeveloper" th:field="${developer.developerId}">
+                <option th:each="developer : ${developers}"
+                        th:value="${developer.developerId}"
+                        th:text="${developer.toString()}">
+                </option>
+            </select>
+            <input class="btn btn-primary" type="submit" value="Submit" />
+            <input class="btn btn-danger" type="reset" value="Reset" />
+        </form>
+    </div>
+</div>
