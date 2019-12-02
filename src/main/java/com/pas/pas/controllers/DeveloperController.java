@@ -70,8 +70,16 @@ public class DeveloperController {
 
     @PostMapping("{id}")
     private String update(@PathVariable UUID id,
-                         @ModelAttribute("developer") Developer developer,
-                         @ModelAttribute("technology") Technology technology) {
+                         @Validated @ModelAttribute("developer") Developer developer,
+                          BindingResult bindingResult,
+                         @ModelAttribute("technology") Technology technology,
+                          Model model) {
+        if (bindingResult.hasErrors()) {
+            developer.setDeveloperId(id);
+            model.addAttribute("developer", developer);
+            model.addAttribute("page", "/developers/edit");
+            return "application/index";
+        }
         developer.setDeveloperId(id);
         developer.setDeveloperTechnology(technology);
         developerService.updateDeveloper(developer);

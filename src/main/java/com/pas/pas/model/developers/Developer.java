@@ -10,12 +10,12 @@ import java.util.UUID;
 public class Developer {
 
     @NotBlank(message = "Name is mandatory")
-    @Size(min = 3, max = 12)
+    @Size(min = 3, max = 12, message = "Size must be between 3 and 12")
     @Pattern(regexp = "[A-Z][a-z]*", message = "Invalid name")
     private String developerName;
 
     @NotBlank(message = "Surname is mandatory")
-    @Size(min = 3, max = 12)
+    @Size(min = 3, max = 12, message = "Size must be between 3 and 12")
     @Pattern(regexp = "[A-Z][a-z]*", message = "Invalid surname")
     private String developerSurname;
 

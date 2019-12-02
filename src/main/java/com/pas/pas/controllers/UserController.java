@@ -56,8 +56,16 @@ public class UserController {
     }
 
     @PostMapping("{id}")
-    private String update(@PathVariable UUID id, @ModelAttribute("user") User user) {
+    private String update(@PathVariable UUID id,
+                          @Validated @ModelAttribute("user") User user,
+                          BindingResult bindingResult,
+                          Model model) {
         user.setUserId(id);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("user", user);
+            model.addAttribute("page", "users/edit");
+            return "application/index";
+        }
         userService.updateUser(user);
         return "redirect:/users";
     }
