@@ -9,6 +9,7 @@ import com.pas.pas.repository.interfaces.IDeveloperRepository;
 import com.pas.pas.repository.interfaces.IEventRepository;
 import com.pas.pas.repository.interfaces.ITechnologyRepository;
 import com.pas.pas.service.interfaces.IDeveloperService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,27 +38,22 @@ public class DeveloperService implements IDeveloperService {
 
     @Override
     public void addDeveloper(Developer developer, Technology technology) {
-
         List<Technology> technologies = technologyRepository.getAllTechnologies();
 
         for (Technology tech : technologies) {
-
-            if(tech.getTechnologyName().equals(technology.getTechnologyName())) {
+            if (tech.getTechnologyName().equals(technology.getTechnologyName())) {
                 developer.setDeveloperTechnology(technology);
-                String developerName = developer.getDeveloperName();
-                String developerSurname = developer.getDeveloperSurname();
-                Technology developerTechnology = developer.getDeveloperTechnology();
-                UUID id = developer.getDeveloperId();
-
                 switch (developer.getDeveloperTechnology().getTechnologyName()) {
                     case "Ruby On Rails":
                     case "NodeJs":
-                        Backend devBack = new Backend(developerName, developerSurname, developerTechnology, id);
-                        developerRepository.addDeveloper(devBack);
+                        Backend backendDev = new Backend();
+                        BeanUtils.copyProperties(developer, backendDev);
+                        developerRepository.addDeveloper(backendDev);
                         break;
                     case "React":
-                        FrontEnd devFrontReact = new FrontEnd(developerName, developerSurname, developerTechnology, id);
-                        developerRepository.addDeveloper(devFrontReact);
+                        FrontEnd frontEnd = new FrontEnd();
+                        BeanUtils.copyProperties(developer, frontEnd);
+                        developerRepository.addDeveloper(frontEnd);
                         break;
                 }
             }

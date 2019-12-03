@@ -8,6 +8,11 @@
             <label for="developerSurname" title="Surname">Developer surname</label>
             <input class="form-control"  id="developerSurname" type="text" th:field="${developer.developerSurname}" />
             <div th:if="${#fields.hasErrors('developerSurname')}" th:errors="*{developerSurname}" class="alert alert-danger" role="alert"></div>
+            <div th:if="${developerType.type == 'front-end'}">
+                <label for="dummyAttribute" title="DummyAttribute">Dummy Attribute</label>
+                <input class="form-control"  id="dummyAttribute" type="text" th:field="${developer.dummyAttribute}" />
+                <input type="hidden" th:field="${developerType.type}" th:value="front-end">
+            </div>
             <label for="selectType">Select technology</label>
             <select class="form-control" id="selectType" th:field="${technology.technologyName}">
                 <option th:each="technology : ${technologies}" th:value="${technology.technologyName}" th:text="${technology.technologyName}"></option>

@@ -36,7 +36,11 @@
         </tr>
         </tbody>
     </table>
-    <form th:action="@{/developers/new}">
-        <input class="btn btn-success" type="submit" value="Add new developer" />
+    <form th:action="@{/developers/new/front-end}">
+        <input class="btn btn-success" type="submit" value="Add front-end developer" />
+    </form>
+    <br/>
+    <form th:action="@{/developers/new/back-end}">
+        <input class="btn btn-success" type="submit" value="Add back-end developer" />
     </form>
 </div>

@@ -22,6 +22,7 @@ public class Developer {
     private Technology developerTechnology;
     private UUID developerId;
     private boolean isHired;
+    private String dummyAttribute;
 
     Developer(String developerName, String developerSurname, Technology developerTechnology, UUID developerId) {
         this.developerName = developerName;
@@ -29,6 +30,7 @@ public class Developer {
         this.developerTechnology = developerTechnology;
         this.developerId = developerId;
         this.isHired = false;
+        this.dummyAttribute = "";
     }
 
     public Developer() { }
@@ -71,6 +73,14 @@ public class Developer {
 
     public void setHired(boolean hired) {
         isHired = hired;
+    }
+
+    public String getDummyAttribute() {
+        return dummyAttribute;
+    }
+
+    public void setDummyAttribute(String dummyAttribute) {
+        this.dummyAttribute = dummyAttribute;
     }
 
     @Override

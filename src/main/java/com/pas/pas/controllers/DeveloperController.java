@@ -2,9 +2,12 @@ package com.pas.pas.controllers;
 
 import com.pas.pas.model.developers.Backend;
 import com.pas.pas.model.developers.Developer;
+import com.pas.pas.model.developers.DeveloperType;
+import com.pas.pas.model.developers.FrontEnd;
 import com.pas.pas.model.technologies.Technology;
 import com.pas.pas.service.interfaces.IDeveloperService;
 import com.pas.pas.service.interfaces.ITechnologyService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,14 +40,26 @@ public class DeveloperController {
         return "application/index";
     }
 
-    @GetMapping("new")
-    public String newForm(Model model) {
-        Developer developer = new Developer();
+    @GetMapping("new/{type}")
+    public String newForm(@PathVariable String type, Model model) {
+        Developer developer;
         Technology technology = new Technology();
-        List<Technology> technologies = technologyService.getAllTechnologies();
+        DeveloperType developerType = new DeveloperType(type);
+        List<Technology> technologies;
+        if (type.equals("front-end")) {
+            developer = new FrontEnd();
+            technologies = technologyService.getAllTechnologiesFrontEnd();
+        } else if (type.equals("back-end")) {
+            developer = new Backend();
+            technologies = technologyService.getAllTechnologiesBackEnd();
+        } else {
+            model.addAttribute("page", "/developers/index");
+            return "application/index";
+        }
         model.addAttribute("technologies", technologies);
         model.addAttribute("developer", developer);
         model.addAttribute("technology", technology);
+        model.addAttribute("developerType", developerType);
         model.addAttribute("page", "developers/new");
         return  "application/index";
     }
@@ -52,9 +67,12 @@ public class DeveloperController {
     @PostMapping
     private String create(@Validated @ModelAttribute("developer") Developer developer,
                           BindingResult bindingResult,
+                          @ModelAttribute("developerType") DeveloperType developerType,
                           @ModelAttribute("technology") Technology technology,
                           Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("developerType", developerType);
+            model.addAttribute("technologies", technology);
             model.addAttribute("page", "developers/new");
             return "application/index";
         }
@@ -76,6 +94,7 @@ public class DeveloperController {
                           Model model) {
         if (bindingResult.hasErrors()) {
             developer.setDeveloperId(id);
+            model.addAttribute("technologies", technology);
             model.addAttribute("developer", developer);
             model.addAttribute("page", "/developers/edit");
             return "application/index";
