@@ -4,7 +4,6 @@ import com.pas.pas.model.events.Event;
 import com.pas.pas.model.users.Client;
 import com.pas.pas.repository.interfaces.IEventRepository;
 import com.pas.pas.service.interfaces.IEventService;
-import com.pas.pas.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

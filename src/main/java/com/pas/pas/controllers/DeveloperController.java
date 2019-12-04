@@ -39,12 +39,23 @@ public class DeveloperController {
         return "application/index";
     }
 
-    @GetMapping("new/front-end")
-    public String newFormFrontEnd(Model model) {
-        FrontEnd developer = new FrontEnd();
+    @GetMapping("new/{type}")
+    public String newForm(@PathVariable String type, Model model) {
+        List<Technology> technologies;
+        DeveloperType developerType;
+        Developer developer;
+        if (type.equals("back-end")) {
+            technologies = technologyService.getAllTechnologiesBackEnd();
+            developer = new Backend();
+            developerType = new DeveloperType("back-end");
+        } else if (type.equals("front-end")) {
+            technologies = technologyService.getAllTechnologiesFrontEnd();
+            developer = new FrontEnd();
+            developerType = new DeveloperType("front-end");
+        } else {
+            return "redirect: /developers";
+        }
         Technology technology = new Technology();
-        DeveloperType developerType = new DeveloperType("front-end");
-        List<Technology> technologies = technologyService.getAllTechnologiesFrontEnd();
         model.addAttribute("technologies", technologies);
         model.addAttribute("developer", developer);
         model.addAttribute("technology", technology);
@@ -53,28 +64,15 @@ public class DeveloperController {
         return  "application/index";
     }
 
-    @GetMapping("new/back-end")
-    public String newFormBackEnd(Model model) {
-        Backend developer = new Backend();
-        Technology technology = new Technology();
-        DeveloperType developerType = new DeveloperType("back-end");
-        List<Technology> technologies = technologyService.getAllTechnologiesBackEnd();
-        model.addAttribute("technologies", technologies);
-        model.addAttribute("developer", developer);
-        model.addAttribute("technology", technology);
-        model.addAttribute("developerType", developerType);
-        model.addAttribute("page", "developers/new");
-        return  "application/index";
-    }
-
-    @PostMapping("create/back-end")
-    private String create(@Validated @ModelAttribute("developer") Backend developer,
+    @PostMapping("front-end")
+    private String createFrontEnd(@Validated @ModelAttribute("developer") FrontEnd developer,
                           BindingResult bindingResult,
-                          @ModelAttribute("developerType") DeveloperType developerType,
+                          @ModelAttribute("developer-type") DeveloperType developerType,
                           @ModelAttribute("technology") Technology technology,
                           Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("developerType", developerType);
+            model.addAttribute("developer", developer);
             model.addAttribute("technologies", technology);
             model.addAttribute("page", "developers/new");
             return "application/index";
@@ -83,14 +81,15 @@ public class DeveloperController {
         return "redirect:/developers";
     }
 
-    @PostMapping("create/front-end")
-    private String create(@Validated @ModelAttribute("developer") FrontEnd developer,
+    @PostMapping("back-end")
+    private String createBackEnd(@Validated @ModelAttribute("developer") Backend developer,
                           BindingResult bindingResult,
                           @ModelAttribute("developerType") DeveloperType developerType,
                           @ModelAttribute("technology") Technology technology,
                           Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("developerType", developerType);
+            model.addAttribute("developer", developer);
             model.addAttribute("technologies", technology);
             model.addAttribute("page", "developers/new");
             return "application/index";
@@ -98,6 +97,7 @@ public class DeveloperController {
         developerService.addDeveloper(developer, technology);
         return "redirect:/developers";
     }
+
 
     @PostMapping("{id}/delete")
     private String destroy(@PathVariable UUID id) {
@@ -107,19 +107,19 @@ public class DeveloperController {
 
     @PostMapping("{id}/back-end")
     private String updateBackEnd(@PathVariable UUID id,
-                         @Validated @ModelAttribute("developer") Backend developer,
+                          @Validated @ModelAttribute("developer") Backend developer,
                           BindingResult bindingResult,
-                         @ModelAttribute("technology") Technology technology,
-                                 @ModelAttribute DeveloperType developerType,
-                                 Model model) {
+                          @ModelAttribute("technology") Technology technology,
+                          @ModelAttribute DeveloperType developerType,
+                          Model model) {
+        developer.setDeveloperId(id);
         if (bindingResult.hasErrors()) {
-            developer.setDeveloperId(id);
+            model.addAttribute("developerType", developerType);
             model.addAttribute("technologies", technology);
             model.addAttribute("developer", developer);
             model.addAttribute("page", "/developers/edit");
             return "application/index";
         }
-        developer.setDeveloperId(id);
         developer.setDeveloperTechnology(technology);
         developerService.updateDeveloper(developer);
         return "redirect:/developers";
@@ -132,14 +132,14 @@ public class DeveloperController {
                           @ModelAttribute("technology") Technology technology,
                           @ModelAttribute("developerType") DeveloperType developerType,
                           Model model) {
+        developer.setDeveloperId(id);
         if (bindingResult.hasErrors()) {
-            developer.setDeveloperId(id);
+            model.addAttribute("developerType", developerType);
             model.addAttribute("technologies", technology);
             model.addAttribute("developer", developer);
             model.addAttribute("page", "/developers/edit");
             return "application/index";
         }
-        developer.setDeveloperId(id);
         developer.setDeveloperTechnology(technology);
         developerService.updateDeveloper(developer);
         return "redirect:/developers";
@@ -147,26 +147,27 @@ public class DeveloperController {
 
     @GetMapping("{id}/edit")
     public String edit(@PathVariable UUID id, Model model) {
+        DeveloperType developerType;
+        List<Technology> technologies;
         Optional<Developer> developer = developerService.selectDeveloperById(id);
         if (developer.isPresent()) {
-            List<Technology> technologies;
-            if ( developer.get().getClass().equals(Backend.class)) {
-                DeveloperType developerType = new DeveloperType("back-end");
-                model.addAttribute("developerType", developerType);
-                technologies = technologyService.getAllTechnologiesBackEnd();
-            } else {
-                DeveloperType developerType = new DeveloperType("front-end");
-                model.addAttribute("developerType", developerType);
+            if (developer.get() instanceof FrontEnd) {
                 technologies = technologyService.getAllTechnologiesFrontEnd();
+                developerType = new DeveloperType("front-end");
+            } else if (developer.get() instanceof Backend) {
+                technologies = technologyService.getAllTechnologiesBackEnd();
+                developerType = new DeveloperType("back-end");
+            } else {
+                return "redirect:/developers";
             }
+            model.addAttribute("developerType", developerType);
             model.addAttribute("technologies", technologies);
             model.addAttribute("developer", developer.get());
             model.addAttribute("technology", developer.get().getDeveloperTechnology());
             model.addAttribute("page", "/developers/edit");
             return  "/application/index";
         } else {
-            model.addAttribute("page", "/developers/index");
-            return  "redirect:/application/index";
+            return "redirect:/developers";
         }
     }
 
@@ -174,18 +175,11 @@ public class DeveloperController {
     public String info(@PathVariable UUID id, Model model) {
         Optional<Developer> developer = developerService.selectDeveloperById(id);
         if (developer.isPresent()) {
-            DeveloperType developerType;
-            if (developer.get().getDeveloperTechnology().getTechnologyName().equals("React")) {
-                developerType = new DeveloperType("front-end");
-            } else {
-                developerType = new DeveloperType("back-end");
-            }
-            model.addAttribute("developerType", developerType);
             model.addAttribute("developer", developer.get());
             model.addAttribute("page", "developers/info");
             return "application/index";
         }
-        return  "redirect:/application/index";
+        return "redirect:/developers";
     }
 
     @GetMapping("search")
