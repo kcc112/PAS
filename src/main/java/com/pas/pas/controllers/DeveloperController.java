@@ -36,6 +36,7 @@ public class DeveloperController {
         List<Developer> developers = developerService.getAllDevelopers();
         model.addAttribute("developers", developers);
         model.addAttribute("page", "developers/index");
+        model.addAttribute("pageName", "Developers");
         return "application/index";
     }
 

@@ -36,6 +36,7 @@ public class EventController {
         List<Event> events = eventService.getAllEvents();
         model.addAttribute("events", events);
         model.addAttribute("page", "events/index");
+        model.addAttribute("pageName", "Events");
         return "application/index";
     }
 
