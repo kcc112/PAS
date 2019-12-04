@@ -17,12 +17,10 @@ import java.util.UUID;
 public class EventService implements IEventService {
 
     private final IEventRepository eventRepository;
-    private final IUserService userService;
 
     @Autowired
-    public EventService(IEventRepository eventRepository, IUserService userService) {
+    public EventService(IEventRepository eventRepository) {
         this.eventRepository = eventRepository;
-        this.userService = userService;
     }
 
     @Override
