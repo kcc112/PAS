@@ -1,6 +1,7 @@
 package com.pas.pas.service;
 
 import com.pas.pas.model.developers.Developer;
+import com.pas.pas.model.developers.FrontEnd;
 import com.pas.pas.model.events.Event;
 import com.pas.pas.model.technologies.Technology;
 import com.pas.pas.repository.interfaces.IDeveloperRepository;
@@ -58,7 +59,27 @@ public class DeveloperService implements IDeveloperService {
 
     @Override
     public void updateDeveloper(Developer developer) {
-        developerRepository.updateDeveloper(developer);
+        Optional<Developer> currentDeveloper = developerRepository.selectDeveloperById(developer.getDeveloperId());
+        if (currentDeveloper.isPresent()) {
+            Technology newTechnology = developer.getDeveloperTechnology();
+            currentDeveloper.get().setDeveloperTechnology(newTechnology);
+
+            if(!developer.getDeveloperName().isBlank()) {
+                String name = developer.getDeveloperName();
+                currentDeveloper.get().setDeveloperName(name);
+            }
+
+            if(!developer.getDeveloperSurname().isBlank()) {
+                String surname = developer.getDeveloperSurname();
+                currentDeveloper.get().setDeveloperSurname(surname);
+            }
+
+            if (currentDeveloper.get() instanceof FrontEnd && developer instanceof FrontEnd ) {
+                ((FrontEnd) currentDeveloper.get()).setDummyAttribute(((FrontEnd) developer).getDummyAttribute());
+            }
+
+            developerRepository.updateDeveloper(currentDeveloper.get());
+        }
     }
 
     @Override
