@@ -1,5 +1,6 @@
 package com.pas.pas.model.developers;
 
+import com.pas.pas.model.events.Event;
 import com.pas.pas.model.technologies.Technology;
 
 import javax.validation.constraints.NotBlank;
@@ -19,6 +20,7 @@ public class Developer {
     @Pattern(regexp = "[A-Z][a-z]*", message = "Invalid surname")
     private String developerSurname;
 
+    private Event event;
     private Technology developerTechnology;
     private UUID developerId;
     private boolean isHired;
@@ -71,6 +73,14 @@ public class Developer {
 
     public void setHired(boolean hired) {
         isHired = hired;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     @Override

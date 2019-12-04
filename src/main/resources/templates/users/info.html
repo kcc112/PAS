@@ -27,7 +27,7 @@
             </tr>
             </tbody>
         </table>
-        <div th:if="${(user instanceof T(com.pas.pas.model.users.Client)) && user.getEvents() != null}" >
+        <div th:if="${(user instanceof T(com.pas.pas.model.users.Client)) && !user.getEvents().isEmpty()}" >
             <h1>User Events</h1>
             <table class="table">
                 <thead class="thead-dark">

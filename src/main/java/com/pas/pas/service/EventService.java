@@ -37,6 +37,7 @@ public class EventService implements IEventService {
         if (event.getUser() instanceof Client) {
             ((Client) event.getUser()).addEvent(event);
         }
+        event.getDeveloper().setEvent(event);
         event.getDeveloper().setHired(true);
         eventRepository.addEvent(event);
     }
@@ -46,6 +47,7 @@ public class EventService implements IEventService {
         Optional<Event> event = eventRepository.selectEventById(id);
         if (event.isPresent() && event.get().getEndDate() == null) {
             event.get().getDeveloper().setHired(false);
+            event.get().getDeveloper().setEvent(null);
             if (event.get().getUser() instanceof Client) {
                 ((Client) event.get().getUser()).removeEvent(event.get());
             }
@@ -59,6 +61,7 @@ public class EventService implements IEventService {
         if (event.isPresent()) {
             if (event.get().getDeveloper() != null) {
                 event.get().getDeveloper().setHired(false);
+                event.get().getDeveloper().setEvent(null);
             }
             event.get().setEndDate(LocalDate.now());
         }
