@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RequestMapping("/users")
@@ -84,5 +85,13 @@ public class UserController {
     public String activateOrDeactivate(@PathVariable UUID id) {
         userService.activateOrDeactivateUser(id);
         return "redirect:/users";
+    }
+
+    @GetMapping("{id}/info")
+    public String info(@PathVariable UUID id, Model model) {
+        Optional<User> user =  userService.selectUserById(id);
+        user.ifPresent(value -> model.addAttribute("user", value));
+        model.addAttribute("page", "users/info");
+        return "application/index";
     }
 }

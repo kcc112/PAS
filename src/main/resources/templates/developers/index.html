@@ -7,6 +7,7 @@
             <th scope="col">Technology</th>
             <th scope="col">Remove</th>
             <th scope="col">Edit</th>
+            <th scope="col">Info</th>
         </tr>
         </thead>
         <tbody>
@@ -31,6 +32,11 @@
             <td>
                 <form th:action="@{/developers/{id}/edit(id=${developer.developerId})}" th:method="get">
                     <input class="btn btn-secondary" type="submit" value="edit" />
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/developers/{id}/info(id=${developer.developerId})}" th:method="get">
+                    <input class="btn btn-secondary" type="submit" value="info" />
                 </form>
             </td>
         </tr>

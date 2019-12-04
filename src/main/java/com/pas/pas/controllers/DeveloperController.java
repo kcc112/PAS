@@ -7,7 +7,6 @@ import com.pas.pas.model.developers.FrontEnd;
 import com.pas.pas.model.technologies.Technology;
 import com.pas.pas.service.interfaces.IDeveloperService;
 import com.pas.pas.service.interfaces.ITechnologyService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -124,5 +123,23 @@ public class DeveloperController {
             model.addAttribute("page", "/developers/index");
             return  "redirect:/application/index";
         }
+    }
+
+    @GetMapping("{id}/info")
+    public String info(@PathVariable UUID id, Model model) {
+        Optional<Developer> developer = developerService.selectDeveloperById(id);
+        if (developer.isPresent()) {
+            DeveloperType developerType;
+            if (developer.get().getDeveloperTechnology().getTechnologyName().equals("React")) {
+                developerType = new DeveloperType("front-end");
+            } else {
+                developerType = new DeveloperType("back-end");
+            }
+            model.addAttribute("developerType", developerType);
+            model.addAttribute("developer", developer.get());
+            model.addAttribute("page", "developers/info");
+            return "application/index";
+        }
+        return  "redirect:/application/index";
     }
 }

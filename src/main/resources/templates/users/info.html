@@ -1,0 +1,9 @@
+<div th:fragment="info" xmlns:th="http://www.w3.org/1999/xhtml" class="d-flex justify-content-center">
+    <div class="d-flex flex-column">
+        <h1>User info</h1>
+        <span th:text="${user.userName}"></span>
+        <span th:text="${user.userSurname}"></span>
+        <span th:text="${user.userType}"></span>
+        <span th:text="${user.isActive}"></span>
+    </div>
+</div>
