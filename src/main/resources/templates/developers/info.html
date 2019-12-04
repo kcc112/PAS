@@ -1,11 +1,28 @@
 <div th:fragment="info" xmlns:th="http://www.w3.org/1999/xhtml" class="d-flex justify-content-center">
-    <div class="d-flex flex-column">
-        <h1>Developer info</h1>
-        <span th:text="${developer.developerName}">Name</span>
-        <span th:text="${developer.developerSurname}">Surname</span>
-        <span th:text="${developer.developerTechnology.technologyName}">Developer</span>
-        <div th:if="${developerType.type == 'front-end'}">
-            <span th:text="${developer.dummyAttribute}"></span>
-        </div>
-    </div>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Technology</th>
+            <th th:if="${developerType.type == 'front-end'}" scope="col">Dummy Attribute</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <span th:text="${developer.developerName}"></span>
+            </td>
+            <td>
+                <span th:text="${developer.developerSurname}"></span>
+            </td>
+            <td>
+                <span th:text="${developer.developerTechnology.technologyName}"></span>
+            </td>
+            <td th:if="${developerType.type == 'front-end'}">
+                <span th:text="${developer.dummyAttribute}"></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>

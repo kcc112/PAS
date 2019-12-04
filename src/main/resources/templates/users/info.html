@@ -1,9 +1,28 @@
 <div th:fragment="info" xmlns:th="http://www.w3.org/1999/xhtml" class="d-flex justify-content-center">
-    <div class="d-flex flex-column">
-        <h1>User info</h1>
-        <span th:text="${user.userName}"></span>
-        <span th:text="${user.userSurname}"></span>
-        <span th:text="${user.userType}"></span>
-        <span th:text="${user.isActive}"></span>
-    </div>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Type</th>
+            <th scope="col">Is active</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <span th:text="${user.userName}"></span>
+            </td>
+            <td>
+                <span th:text="${user.userSurname}"></span>
+            </td>
+            <td>
+                <span th:text="${user.userType}"></span>
+            </td>
+            <td>
+                <span th:text="${user.isActive}"></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
