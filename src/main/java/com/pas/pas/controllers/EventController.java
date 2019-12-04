@@ -36,7 +36,7 @@ public class EventController {
         List<Event> events = eventService.getAllEvents();
         model.addAttribute("events", events);
         model.addAttribute("page", "events/index");
-        model.addAttribute("pageName", "Events");
+        model.addAttribute("pageName", "events");
         return "application/index";
     }
 
@@ -47,6 +47,7 @@ public class EventController {
         Developer developer = new Developer();
         List<Developer> developers = developerService.getAllUnemployedDevelopers();
         List<User> users = userService.getAllActiveClients();
+        model.addAttribute("pageName", "events");
         model.addAttribute("users", users);
         model.addAttribute("developers", developers);
         model.addAttribute("user", user);
@@ -59,9 +60,11 @@ public class EventController {
     @PostMapping
     private String create(@Validated @ModelAttribute("event") Event event,
                           @ModelAttribute("developer") Developer developer,
-                          @ModelAttribute("user") User user) {
+                          @ModelAttribute("user") User user,
+                          Model model) {
         Optional<Developer> developerToSet = developerService.selectDeveloperById(developer.getDeveloperId());
         Optional<User> userToSet = userService.selectUserById(user.getUserId());
+        model.addAttribute("pageName", "events");
         if (developerToSet.isPresent() && userToSet.isPresent()) {
             event.setUser(userToSet.get());
             event.setDeveloper(developerToSet.get());
@@ -71,13 +74,15 @@ public class EventController {
     }
 
     @PostMapping("{id}/delete")
-    private String destroy(@PathVariable UUID id) {
+    private String destroy(@PathVariable UUID id, Model model) {
         eventService.destroyEvent(id);
+        model.addAttribute("pageName", "events");
         return "redirect:/events";
     }
 
     @PostMapping("{id}/end")
-    public String endEvent(@PathVariable UUID id) {
+    public String endEvent(@PathVariable UUID id, Model model) {
+        model.addAttribute("pageName", "events");
         eventService.finishEvent(id);
         return "redirect:/events";
     }

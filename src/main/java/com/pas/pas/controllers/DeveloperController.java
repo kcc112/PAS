@@ -36,7 +36,7 @@ public class DeveloperController {
         List<Developer> developers = developerService.getAllDevelopers();
         model.addAttribute("developers", developers);
         model.addAttribute("page", "developers/index");
-        model.addAttribute("pageName", "Developers");
+        model.addAttribute("pageName", "developers");
         return "application/index";
     }
 
@@ -45,6 +45,7 @@ public class DeveloperController {
         List<Technology> technologies;
         DeveloperType developerType;
         Developer developer;
+        model.addAttribute("pageName", "developers");
         if (type.equals("back-end")) {
             technologies = technologyService.getAllTechnologiesBackEnd();
             developer = new Backend();
@@ -54,6 +55,7 @@ public class DeveloperController {
             developer = new FrontEnd();
             developerType = new DeveloperType("front-end");
         } else {
+            model.addAttribute("pageName", "developers");
             return "redirect: /developers";
         }
         Technology technology = new Technology();
@@ -71,6 +73,7 @@ public class DeveloperController {
                           @ModelAttribute("developer-type") DeveloperType developerType,
                           @ModelAttribute("technology") Technology technology,
                           Model model) {
+        model.addAttribute("pageName", "developers");
         if (bindingResult.hasErrors()) {
             model.addAttribute("developerType", developerType);
             model.addAttribute("developer", developer);
@@ -88,6 +91,7 @@ public class DeveloperController {
                           @ModelAttribute("developerType") DeveloperType developerType,
                           @ModelAttribute("technology") Technology technology,
                           Model model) {
+        model.addAttribute("pageName", "developers");
         if (bindingResult.hasErrors()) {
             model.addAttribute("developerType", developerType);
             model.addAttribute("developer", developer);
@@ -101,7 +105,8 @@ public class DeveloperController {
 
 
     @PostMapping("{id}/delete")
-    private String destroy(@PathVariable UUID id) {
+    private String destroy(@PathVariable UUID id, Model model) {
+        model.addAttribute("pageName", "developers");
         developerService.destroyDeveloper(id);
         return "redirect:/developers";
     }
@@ -114,6 +119,7 @@ public class DeveloperController {
                           @ModelAttribute DeveloperType developerType,
                           Model model) {
         developer.setDeveloperId(id);
+        model.addAttribute("pageName", "developers");
         if (bindingResult.hasErrors()) {
             model.addAttribute("developerType", developerType);
             model.addAttribute("technologies", technology);
@@ -134,6 +140,7 @@ public class DeveloperController {
                           @ModelAttribute("developerType") DeveloperType developerType,
                           Model model) {
         developer.setDeveloperId(id);
+        model.addAttribute("pageName", "developers");
         if (bindingResult.hasErrors()) {
             model.addAttribute("developerType", developerType);
             model.addAttribute("technologies", technology);
@@ -151,6 +158,7 @@ public class DeveloperController {
         DeveloperType developerType;
         List<Technology> technologies;
         Optional<Developer> developer = developerService.selectDeveloperById(id);
+        model.addAttribute("pageName", "developers");
         if (developer.isPresent()) {
             if (developer.get() instanceof FrontEnd) {
                 technologies = technologyService.getAllTechnologiesFrontEnd();
@@ -175,6 +183,7 @@ public class DeveloperController {
     @GetMapping("{id}/info")
     public String info(@PathVariable UUID id, Model model) {
         Optional<Developer> developer = developerService.selectDeveloperById(id);
+        model.addAttribute("pageName", "developers");
         if (developer.isPresent()) {
             model.addAttribute("developer", developer.get());
             model.addAttribute("page", "developers/info");
@@ -186,6 +195,7 @@ public class DeveloperController {
     @GetMapping("search")
     public String search(@RequestParam(value="name", required=false) String name, Model model) {
         List<Developer> developers;
+        model.addAttribute("pageName", "developers");
         if (name.isBlank()) {
             developers = developerService.getAllDevelopers();
         } else {

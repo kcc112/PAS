@@ -1,13 +1,13 @@
 <div th:fragment="info" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="d-flex flex-column">
-        <h1>User Info</h1>
+        <h1 th:text="#{userInfo}"></h1>
         <table class="table">
             <thead class="thead-dark">
             <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Surname</th>
-                <th scope="col">Type</th>
-                <th scope="col">Is active</th>
+                <th scope="col" th:text="#{name}"></th>
+                <th scope="col" th:text="#{surname}"></th>
+                <th scope="col" th:text="#{type}"></th>
+                <th scope="col" th:text="#{isActive}"></th>
             </tr>
             </thead>
             <tbody>
@@ -28,15 +28,15 @@
             </tbody>
         </table>
         <div th:if="${(user instanceof T(com.pas.pas.model.users.Client)) && !user.getEvents().isEmpty()}" >
-            <h1>User Events</h1>
+            <h1 th:text="#{userEvents}"></h1>
             <table class="table">
                 <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Developer Name</th>
-                    <th scope="col">Developer Surname</th>
-                    <th scope="col">Developer Technology</th>
-                    <th scope="col">Start Date</th>
-                    <th scope="col">End Date</th>
+                    <th scope="col" th:text="#{name}"></th>
+                    <th scope="col" th:text="#{surname}"></th>
+                    <th scope="col" th:text="#{technologyName}"></th>
+                    <th scope="col" th:text="#{startDate}"></th>
+                    <th scope="col" th:text="#{endDate}"></th>
                 </tr>
                 </thead>
                 <tbody>

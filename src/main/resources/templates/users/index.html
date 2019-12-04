@@ -2,19 +2,19 @@
     <table class="table">
         <thead class="thead-dark">
         <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Surname</th>
-            <th scope="col">Type</th>
-            <th scope="col">Is active</th>
-            <th scope="col">Remove</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Activate or deactivate</th>
-            <th scope="col">Info</th>
+            <th scope="col" th:text="#{name}"></th>
+            <th scope="col" th:text="#{surname}"></th>
+            <th scope="col" th:text="#{type}"></th>
+            <th scope="col" th:text="#{isActive}"></th>
+            <th scope="col" th:text="#{remove}"></th>
+            <th scope="col" th:text="#{edit}"></th>
+            <th scope="col" th:text="#{activateOrDeactivate}"></th>
+            <th scope="col" th:text="#{info}"></th>
         </tr>
         </thead>
         <tbody>
         <tr th:if="${users.empty}">
-            <td colspan="2">empty</td>
+            <td colspan="2" th:text="#{empty}"></td>
         </tr>
         <tr th:each="user : ${users}">
             <td>
@@ -31,28 +31,28 @@
             </td>
             <td>
                 <form th:action="@{/users/{id}/delete(id=${user.userId})}" method="post">
-                    <input class="btn btn-danger" type="submit" value="remove" />
+                    <input class="btn btn-danger" type="submit" th:value="#{remove}" />
                 </form>
             </td>
             <td>
                 <form th:action="@{/users/{id}/edit(id=${user.userId})}" method="get">
-                    <input class="btn btn-secondary" type="submit" value="edit" />
+                    <input class="btn btn-secondary" type="submit" th:value="#{edit}" />
                 </form>
             </td>
             <td>
                 <form th:action="@{/users/{id}/activate-or-deactivate(id=${user.userId})}" method="get">
-                    <input class="btn btn-primary" type="submit" value="activate or deactivate" />
+                    <input class="btn btn-primary" type="submit" th:value="#{activateOrDeactivate}" />
                 </form>
             </td>
             <td>
                 <form th:action="@{/users/{id}/info(id=${user.userId})}" method="get">
-                    <input class="btn btn-primary" type="submit" value="info" />
+                    <input class="btn btn-primary" type="submit" th:value="#{info}" />
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
     <form th:action="@{/users/new}">
-        <input class="btn btn-success"  type="submit" value="Add new user" />
+        <input class="btn btn-success"  type="submit" th:value="#{addNewUser}" />
     </form>
 </div>

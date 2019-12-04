@@ -25,7 +25,7 @@ public class TechnologyController {
         List<Technology> technologies = technologyService.getAllTechnologies();
         model.addAttribute("technologies", technologies);
         model.addAttribute("page", "technologies/index");
-        model.addAttribute("pageName", "Technologies");
+        model.addAttribute("pageName", "technologies");
         return "application/index";
     }
 }

@@ -1,13 +1,13 @@
 <div th:fragment="info" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="d-flex flex-column">
-        <h1>Developer Info</h1>
+        <h1 th:text="#{developerInfo}"></h1>
         <table class="table">
             <thead class="thead-dark">
             <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Surname</th>
-                <th scope="col">Technology</th>
-                <th th:if="${(developer instanceof T(com.pas.pas.model.developers.FrontEnd))}" scope="col">Dummy Attribute</th>
+                <th scope="col" th:text="#{name}"></th>
+                <th scope="col" th:text="#{surname}"></th>
+                <th scope="col" th:text="#{technologyName}"></th>
+                <th th:if="${(developer instanceof T(com.pas.pas.model.developers.FrontEnd))}" scope="col" th:field="#{dummyAttribute}"></th>
             </tr>
             </thead>
             <tbody>
@@ -28,12 +28,12 @@
             </tbody>
         </table>
         <div th:if="${developer.getEvent() != null}" >
-            <h1>User Info</h1>
+            <h1 th:text="#{userInfo}"></h1>
             <table class="table">
                 <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Client Name</th>
-                    <th scope="col">Client Surname</th>
+                    <th scope="col" th:text="#{clientName}"></th>
+                    <th scope="col" th:text="#{clientSurname}"></th>
                 </tr>
                 </thead>
                 <tbody>

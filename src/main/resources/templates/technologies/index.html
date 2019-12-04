@@ -3,16 +3,16 @@
         <table class="table">
             <thead  class="thead-dark">
                 <tr>
-                    <th scope="col">Technology Name</th>
+                    <th scope="col" th:text="#{technologyName}"></th>
                 </tr>
             </thead>
             <tbody>
             <tr th:if="${technologies.empty}">
-                <td colspan="2">empty</td>
+                <td colspan="2" th:text="#{empty}"></td>
             </tr>
             <tr th:each="technology : ${technologies}">
                 <td>
-                    <span th:text="${technology.technologyName}">Name</span>
+                    <span th:text="${technology.technologyName}"></span>
                 </td>
             </tr>
             </tbody>

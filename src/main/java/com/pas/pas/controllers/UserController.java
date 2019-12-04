@@ -29,13 +29,14 @@ public class UserController {
         List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
         model.addAttribute("page", "users/index");
-        model.addAttribute("pageName", "Users");
+        model.addAttribute("pageName", "users");
         return "application/index";
     }
 
     @GetMapping("new")
     public String _new(Model model) {
         User user = new User();
+        model.addAttribute("pageName", "users");
         model.addAttribute("user", user);
         model.addAttribute("page", "users/new");
         return "application/index";
@@ -43,6 +44,7 @@ public class UserController {
 
     @PostMapping
     private String create(@Validated @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+        model.addAttribute("pageName", "users");
         if (bindingResult.hasErrors()) {
             model.addAttribute("page", "users/new");
             return "application/index";
@@ -52,7 +54,8 @@ public class UserController {
     }
 
     @PostMapping("{id}/delete")
-    private String destroy(@PathVariable UUID id) {
+    private String destroy(@PathVariable UUID id, Model model) {
+        model.addAttribute("pageName", "users");
         userService.destroyUser(id);
         return "redirect:/users";
     }
@@ -62,6 +65,7 @@ public class UserController {
                           @Validated @ModelAttribute("user") User user,
                           BindingResult bindingResult,
                           Model model) {
+        model.addAttribute("pageName", "users");
         user.setUserId(id);
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
@@ -76,6 +80,7 @@ public class UserController {
     public String edit(@PathVariable UUID id, Model model) {
         User user = new User();
         user.setUserId(id);
+        model.addAttribute("pageName", "users");
         model.addAttribute("user", user);
         model.addAttribute("page", "users/edit");
         return "application/index";
@@ -83,7 +88,8 @@ public class UserController {
 
     //Custom controllers region
     @GetMapping("{id}/activate-or-deactivate")
-    public String activateOrDeactivate(@PathVariable UUID id) {
+    public String activateOrDeactivate(@PathVariable UUID id, Model model) {
+        model.addAttribute("pageName", "users");
         userService.activateOrDeactivateUser(id);
         return "redirect:/users";
     }
@@ -93,6 +99,7 @@ public class UserController {
         Optional<User> user =  userService.selectUserById(id);
         user.ifPresent(value -> model.addAttribute("user", value));
         model.addAttribute("page", "users/info");
+        model.addAttribute("pageName", "users");
         return "application/index";
     }
 
@@ -106,6 +113,7 @@ public class UserController {
         }
         model.addAttribute("users", users);
         model.addAttribute("page", "users/index");
+        model.addAttribute("pageName", "users");
         return "application/index";
     }
 }
