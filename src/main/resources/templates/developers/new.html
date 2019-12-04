@@ -1,7 +1,7 @@
 <div th:fragment="new" xmlns:th="http://www.w3.org/1999/xhtml" class="d-flex justify-content-center">
     <div class="d-flex flex-column">
         <h1>Add Developer</h1>
-        <form class="form-group" action="#" th:action="@{/developers}" th:object="${developer}" method="post">
+        <form class="form-group" action="#" th:object="${developer}" th:action="@{/developers/create/{type}(type=${developerType.type})}" method="post">
             <label for="developerName" title="Name">Developer name</label>
             <input class="form-control"  id="developerName" type="text" th:field="${developer.developerName}"/>
             <div th:if="${#fields.hasErrors('developerName')}" th:errors="*{developerName}" class="alert alert-danger" role="alert"></div>
@@ -12,6 +12,9 @@
                 <label for="dummyAttribute" title="DummyAttribute">Dummy Attribute</label>
                 <input class="form-control"  id="dummyAttribute" type="text" th:field="${developer.dummyAttribute}" />
                 <input type="hidden" th:field="${developerType.type}" th:value="front-end">
+            </div>
+            <div th:if="${developerType.type == 'back-end'}">
+                <input type="hidden" th:field="${developerType.type}" th:value="back-end">
             </div>
             <label for="selectType">Select technology</label>
             <select class="form-control" id="selectType" th:field="${technology.technologyName}">

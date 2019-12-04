@@ -6,6 +6,7 @@ import java.util.UUID;
 
 public class FrontEnd extends Developer {
     private String dummyAttribute;
+
     public FrontEnd(String developerName, String developerSurname, Technology developerTechnology, UUID developerId) {
         super(developerName, developerSurname, developerTechnology, developerId);
     }
