@@ -61,7 +61,6 @@ public class EventController {
                           @ModelAttribute("user") User user) {
         Optional<Developer> developerToSet = developerService.selectDeveloperById(developer.getDeveloperId());
         Optional<User> userToSet = userService.selectUserById(user.getUserId());
-
         if (developerToSet.isPresent() && userToSet.isPresent()) {
             event.setUser(userToSet.get());
             event.setDeveloper(developerToSet.get());

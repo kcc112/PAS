@@ -1,28 +1,64 @@
-<div th:fragment="info" xmlns:th="http://www.w3.org/1999/xhtml" class="d-flex justify-content-center">
-    <table class="table">
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Surname</th>
-            <th scope="col">Type</th>
-            <th scope="col">Is active</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>
-                <span th:text="${user.userName}"></span>
-            </td>
-            <td>
-                <span th:text="${user.userSurname}"></span>
-            </td>
-            <td>
-                <span th:text="${user.userType}"></span>
-            </td>
-            <td>
-                <span th:text="${user.isActive}"></span>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<div th:fragment="info" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="d-flex flex-column">
+        <h1>User Info</h1>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Surname</th>
+                <th scope="col">Type</th>
+                <th scope="col">Is active</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span th:text="${user.userName}"></span>
+                </td>
+                <td>
+                    <span th:text="${user.userSurname}"></span>
+                </td>
+                <td>
+                    <span th:text="${user.userType}"></span>
+                </td>
+                <td>
+                    <span th:text="${user.isActive}"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div th:if="${(user instanceof T(com.pas.pas.model.users.Client)) && user.getEvents() != null}" >
+            <h1>User Events</h1>
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Developer Name</th>
+                    <th scope="col">Developer Surname</th>
+                    <th scope="col">Developer Technology</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="event : ${user.getEvents()}">
+                    <td>
+                        <span th:text="${event.developer.developerName}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${event.developer.developerSurname}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${event.developer.developerTechnology.technologyName}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${event.startDate}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${event.endDate}" ></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
