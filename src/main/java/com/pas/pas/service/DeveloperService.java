@@ -70,4 +70,9 @@ public class DeveloperService implements IDeveloperService {
     public List<Developer> getAllUnemployedDevelopers() {
         return developerRepository.getAllUnemployedDevelopers();
     }
+
+    @Override
+    public List<Developer> getDevelopersByName(String name) {
+        return developerRepository.getDevelopersByName(name);
+    }
 }

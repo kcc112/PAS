@@ -70,6 +70,17 @@ public class DeveloperRepository implements IDeveloperRepository {
     }
 
     @Override
+    public List<Developer> getDevelopersByName(String name) {
+        List<Developer> developersList = new ArrayList<>();
+        for (Developer developer : developers) {
+            if (developer.getDeveloperName().equals(name)) {
+                developersList.add(developer);
+            }
+        }
+        return developersList;
+    }
+
+    @Override
     public List<Developer> getAllUnemployedDevelopers() {
         List<Developer> unemployedDevelopers = new ArrayList<>();
         for (Developer developer : developers) {

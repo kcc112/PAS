@@ -97,4 +97,9 @@ public class UserService implements IUserService {
             }
         });
     }
+
+    @Override
+    public List<User> getUsersByName(String name) {
+        return userRepository.getUsersByName(name);
+    }
 }

@@ -14,4 +14,5 @@ public interface IDeveloperService {
     void addDeveloper(Developer developer, Technology technology);
     void updateDeveloper(Developer developer);
     void destroyDeveloper(UUID id);
+    List<Developer> getDevelopersByName(String name);
 }

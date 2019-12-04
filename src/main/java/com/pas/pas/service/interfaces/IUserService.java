@@ -14,4 +14,5 @@ public interface IUserService {
     void activateOrDeactivateUser(UUID id);
     List<User> getAllActiveClients();
     Optional<User> selectUserById(UUID id);
+    List<User> getUsersByName(String name);
 }

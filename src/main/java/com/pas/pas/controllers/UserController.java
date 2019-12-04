@@ -94,4 +94,17 @@ public class UserController {
         model.addAttribute("page", "users/info");
         return "application/index";
     }
+
+    @GetMapping("search")
+    public String search(@RequestParam(value="name", required=false) String name, Model model) {
+        List<User> users;
+        if (name.isBlank()) {
+            users = userService.getAllUsers();
+        } else {
+            users = userService.getUsersByName(name);
+        }
+        model.addAttribute("users", users);
+        model.addAttribute("page", "users/index");
+        return "application/index";
+    }
 }

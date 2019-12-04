@@ -35,7 +35,7 @@ public class DeveloperController {
     public String index(Model model) {
         List<Developer> developers = developerService.getAllDevelopers();
         model.addAttribute("developers", developers);
-        model.addAttribute("page", "/developers/index");
+        model.addAttribute("page", "developers/index");
         return "application/index";
     }
 
@@ -186,5 +186,18 @@ public class DeveloperController {
             return "application/index";
         }
         return  "redirect:/application/index";
+    }
+
+    @GetMapping("search")
+    public String search(@RequestParam(value="name", required=false) String name, Model model) {
+        List<Developer> developers;
+        if (name.isBlank()) {
+            developers = developerService.getAllDevelopers();
+        } else {
+            developers = developerService.getDevelopersByName(name);
+        }
+        model.addAttribute("developers", developers);
+        model.addAttribute("page", "developers/index");
+        return "application/index";
     }
 }
