@@ -4,10 +4,7 @@ import com.pas.pas.model.events.Event;
 import com.pas.pas.repository.interfaces.IEventRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Repository
 public class EventRepository implements IEventRepository {
@@ -40,6 +37,7 @@ public class EventRepository implements IEventRepository {
     @Override
     public Optional<Event> getEventsWithDevelopId(UUID id) {
         return events.stream()
+                .filter(event ->  Objects.nonNull(event.getDeveloper()))
                 .filter(event -> event.getDeveloper().getDeveloperId().equals(id))
                 .findFirst();
     }
