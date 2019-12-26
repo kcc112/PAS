@@ -5,6 +5,8 @@ import com.pas.pas.model.users.Client;
 import com.pas.pas.model.users.ResourceAdministrator;
 import com.pas.pas.model.users.User;
 import com.pas.pas.repository.interfaces.IUserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -18,13 +20,14 @@ public class UserRepository implements IUserRepository {
     private List<User> users;
 
     public UserRepository() {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         this.users = new ArrayList<>();
-        users.add(new Admin("Kamil", "Celejewski","ADMIN", UUID.randomUUID(), "123"));
-        users.add(new Client("Marcin1", "Morawski","CLIENT", UUID.randomUUID(),"123"));
-        users.add(new Client("Marcin2", "Morawski","CLIENT", UUID.randomUUID(),"123"));
-        users.add(new Client("Marcin3", "Morawski","CLIENT", UUID.randomUUID(),"123"));
-        users.add(new Client("Marcin4", "Morawski","CLIENT", UUID.randomUUID(),"123"));
-        users.add(new ResourceAdministrator("Szymon", "Dobrowolski","RESOURCE_ADMINISTRATOR", UUID.randomUUID(),"123"));
+        users.add(new Admin("Kamil", "Celejewski","ADMIN", UUID.randomUUID(), passwordEncoder.encode("123")));
+        users.add(new Client("Marcin1", "Morawski","CLIENT", UUID.randomUUID(),passwordEncoder.encode("123")));
+        users.add(new Client("Marcin2", "Morawski","CLIENT", UUID.randomUUID(),passwordEncoder.encode("123")));
+        users.add(new Client("Marcin3", "Morawski","CLIENT", UUID.randomUUID(),passwordEncoder.encode("123")));
+        users.add(new Client("Marcin4", "Morawski","CLIENT", UUID.randomUUID(),passwordEncoder.encode("123")));
+        users.add(new ResourceAdministrator("Szymon", "Dobrowolski","RESOURCE_ADMINISTRATOR", UUID.randomUUID(),passwordEncoder.encode("123")));
     }
 
     @Override
@@ -78,15 +81,22 @@ public class UserRepository implements IUserRepository {
         return activeClients;
     }
 
+//    @Override
+//    public List<User> getUsersByName(String name) {
+//        List<User> clients = new ArrayList<>();
+//        for (User user : users) {
+//            if (user.getUserName().equals(name)) {
+//                clients.add(user);
+//            }
+//        }
+//        return clients;
+//    }
+
     @Override
-    public List<User> getUsersByName(String name) {
-        List<User> clients = new ArrayList<>();
-        for (User user : users) {
-            if (user.getUserName().equals(name)) {
-                clients.add(user);
-            }
-        }
-        return clients;
+    public Optional<User> getUsersByName(String name) {
+        return users.stream()
+                .filter(user -> user.getUserName().equals(name))
+                .findFirst();
     }
 
     private List<User> getAllClients() {

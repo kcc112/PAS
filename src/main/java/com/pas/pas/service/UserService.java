@@ -9,6 +9,7 @@ import com.pas.pas.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -100,6 +101,8 @@ public class UserService implements IUserService {
 
     @Override
     public List<User> getUsersByName(String name) {
-        return userRepository.getUsersByName(name);
+        //return userRepository.getUsersByName(name);
+        List<User> users = new ArrayList<>();
+        return users;
     }
 }

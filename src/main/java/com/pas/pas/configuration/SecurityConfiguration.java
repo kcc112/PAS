@@ -1,7 +1,10 @@
 package com.pas.pas.configuration;
 
+import com.pas.pas.model.users.UserPrincipalDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,14 +16,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private UserPrincipalDetailsService userPrincipalDetailsService;
+
+    @Autowired
+    public SecurityConfiguration(UserPrincipalDetailsService userPrincipalDetailsService) {
+        this.userPrincipalDetailsService = userPrincipalDetailsService;
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin").password(passwordEncoder().encode("123")).roles("ADMIN")
-                .and()
-                .withUser("user").password(passwordEncoder().encode("123")).roles("USER")
-                .and()
-                .withUser("manager").password(passwordEncoder().encode("123")).roles("MANAGER");
+        auth.authenticationProvider(daoAuthenticationProvider());
     }
 
     @Override
@@ -29,15 +34,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/events/**").hasRole("USER")
                 .antMatchers("/users/**").hasRole("ADMIN")
-                .antMatchers("/developers/**").hasRole("MANAGER")
+                .antMatchers("/developers/**").hasRole("RESOURCE_ADMINISTRATOR")
                 .antMatchers("/technologies/**").authenticated()
                 .and()
                 .httpBasic();
     }
 
     @Bean
+    DaoAuthenticationProvider daoAuthenticationProvider() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        daoAuthenticationProvider.setUserDetailsService(userPrincipalDetailsService);
+
+        return daoAuthenticationProvider;
+    }
+
+    @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }
