@@ -1,5 +1,6 @@
-package com.pas.pas.model.users;
+package com.pas.pas.configuration.security;
 
+import com.pas.pas.model.users.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
