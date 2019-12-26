@@ -1,6 +1,6 @@
 package com.pas.pas.controllers;
 
-import com.pas.pas.model.users.User;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +16,13 @@ public class Application {
     }
 
     @GetMapping("login")
-    public String login(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
+    public String login() {
         return "application/login.html";
+    }
+
+    @GetMapping("home")
+    public String home(Model model) {
+        model.addAttribute("pageName", "home");
+        return "application/home.html";
     }
 }

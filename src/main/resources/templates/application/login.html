@@ -12,13 +12,13 @@
 <div class="d-flex justify-content-center">
     <div class="d-flex flex-column">
         <h1 th:text="#{logIn}"></h1>
-        <form class="form-group" action="#" th:action="@{/login}" th:object="${user}" method="post">
+        <form class="form-group" action="#" th:action="@{/login}" method="post">
 
             <label for="userName" title="Name" th:text="#{userName}"></label>
-            <input class="form-control" id="userName" type="text" th:field="*{userName}"/>
+            <input class="form-control" id="userName" type="text" name="username"/>
 
             <label for="password" title="Password" th:text="#{password}"></label>
-            <input class="form-control" id="password" type="password" th:field="*{password}" />
+            <input class="form-control" id="password" type="password" name="password" />
 
             <div class="button-container">
                 <input class="btn btn-primary" type="submit" th:value="#{logIn}" />
