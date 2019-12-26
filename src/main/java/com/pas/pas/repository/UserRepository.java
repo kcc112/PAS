@@ -19,12 +19,12 @@ public class UserRepository implements IUserRepository {
 
     public UserRepository() {
         this.users = new ArrayList<>();
-        users.add(new Admin("Kamil", "Celejewski","Admin", UUID.randomUUID()));
-        users.add(new Client("Marcin1", "Morawski","Client", UUID.randomUUID()));
-        users.add(new Client("Marcin2", "Morawski","Client", UUID.randomUUID()));
-        users.add(new Client("Marcin3", "Morawski","Client", UUID.randomUUID()));
-        users.add(new Client("Marcin4", "Morawski","Client", UUID.randomUUID()));
-        users.add(new ResourceAdministrator("Szymon", "Dobrowolski","ResourceAdministrator", UUID.randomUUID()));
+        users.add(new Admin("Kamil", "Celejewski","ADMIN", UUID.randomUUID(), "123"));
+        users.add(new Client("Marcin1", "Morawski","CLIENT", UUID.randomUUID(),"123"));
+        users.add(new Client("Marcin2", "Morawski","CLIENT", UUID.randomUUID(),"123"));
+        users.add(new Client("Marcin3", "Morawski","CLIENT", UUID.randomUUID(),"123"));
+        users.add(new Client("Marcin4", "Morawski","CLIENT", UUID.randomUUID(),"123"));
+        users.add(new ResourceAdministrator("Szymon", "Dobrowolski","RESOURCE_ADMINISTRATOR", UUID.randomUUID(),"123"));
     }
 
     @Override

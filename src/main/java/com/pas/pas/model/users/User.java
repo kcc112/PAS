@@ -17,17 +17,21 @@ public class User {
     @Pattern(regexp = "[A-Z][a-z]*", message = "Invalid surname")
     private String userSurname;
 
+    @NotBlank(message = "Password is mandatory")
+    private String password;
+
     private String userType;
 
     private UUID userId;
     private boolean isActive;
 
-    User(String userName, String userSurname, String userType, UUID userId) {
+    User(String userName, String userSurname, String userType, UUID userId, String password) {
         this.userName = userName;
         this.userSurname = userSurname;
         this.userType = userType;
         this.userId = userId;
         this.isActive = true;
+        this.password = password;
     }
 
     public User() {}
@@ -70,6 +74,14 @@ public class User {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

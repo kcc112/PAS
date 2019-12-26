@@ -30,16 +30,16 @@ public class UserService implements IUserService {
         UUID id = user.getUserId();
 
         switch (user.getUserType()) {
-            case "Admin":
-                user = new Admin(userName, userSurname, userType, id);
+            case "ADMIN":
+                user = new Admin(userName, userSurname, userType, id, "123");
                 userRepository.addUser(user);
                 break;
-            case "Client":
-                user = new Client(userName, userSurname, userType, id);
+            case "CLIENT":
+                user = new Client(userName, userSurname, userType, id, "123");
                 userRepository.addUser(user);
                 break;
-            case "ResourceAdministrator":
-                user = new ResourceAdministrator(userName, userSurname, userType, id);
+            case "RESOURCE_ADMINISTRATOR":
+                user = new ResourceAdministrator(userName, userSurname, userType, id, "123");
                 userRepository.addUser(user);
                 break;
             default:
