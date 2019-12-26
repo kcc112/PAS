@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/layout.css}"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="d-flex justify-content-center">
+    <div class="d-flex flex-column">
+        <h1 th:text="#{logIn}"></h1>
+        <form class="form-group" action="#" th:action="@{/login}" th:object="${user}" method="post">
+
+            <label for="userName" title="Name" th:text="#{userName}"></label>
+            <input class="form-control" id="userName" type="text" th:field="*{userName}"/>
+
+            <label for="password" title="Password" th:text="#{password}"></label>
+            <input class="form-control" id="password" type="password" th:field="*{password}" />
+
+            <div class="button-container">
+                <input class="btn btn-primary" type="submit" th:value="#{logIn}" />
+            </div>
+        </form>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
