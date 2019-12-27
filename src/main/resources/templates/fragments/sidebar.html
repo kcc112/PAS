@@ -1,5 +1,4 @@
-<div th:fragment="sidebar" class="d-flex align-items-stretch" xmlns:th="https://www.thymeleaf.org"
-     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div th:fragment="sidebar" class="d-flex align-items-stretch" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="sidenav">
         <a sec:authorize="hasRole('ROLE_RESOURCE_ADMINISTRATOR')" class="nav-link" th:href="@{/developers}" th:text="#{developers}"></a>
         <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/users}" th:text="#{users}"></a>
