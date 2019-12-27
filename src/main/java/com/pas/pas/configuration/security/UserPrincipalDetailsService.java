@@ -20,7 +20,7 @@ public class UserPrincipalDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.getUsersByName(s);
+        Optional<User> user = userRepository.selectUserByEmail(s);
         UserPrincipal userPrincipal = null;
         if (user.isPresent()) {
             userPrincipal = new UserPrincipal(user.get());
