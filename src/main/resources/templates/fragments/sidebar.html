@@ -4,5 +4,6 @@
         <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/users}" th:text="#{users}"></a>
         <a sec:authorize="hasRole('ROLE_CLIENT')" class="nav-link" th:href="@{/events}" th:text="#{events}"></a>
         <a sec:authorized="isAuthenticated()" class="nav-link" th:href="@{/technologies}" th:text="#{technologies}"></a>
+        <a sec:authorized="isAuthenticated()" class="nav-link" th:href="@{/home}" th:text="#{home}"></a>
     </div>
 </div>

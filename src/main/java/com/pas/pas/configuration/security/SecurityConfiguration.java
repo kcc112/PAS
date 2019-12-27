@@ -24,7 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(daoAuthenticationProvider());
     }
 
@@ -32,7 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/home").authenticated()
-                .antMatchers("/events/**").hasRole("USER")
+                .antMatchers("/events/**").hasRole("CLIENT")
                 .antMatchers("/users/**").hasRole("ADMIN")
                 .antMatchers("/developers/**").hasRole("RESOURCE_ADMINISTRATOR")
                 .antMatchers("/technologies/**").authenticated()
