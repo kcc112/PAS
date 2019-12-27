@@ -3,12 +3,14 @@ package com.pas.pas.controllers;
 import com.pas.pas.model.users.User;
 import com.pas.pas.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -43,14 +45,23 @@ public class UserController {
     }
 
     @PostMapping
-    private String create(@Validated @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
-        model.addAttribute("pageName", "users");
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("page", "users/new");
-            return "application/index";
+    private String create(@Validated @ModelAttribute("user") User user, BindingResult bindingResult, Model model, Principal principal) {
+        if (principal != null) {
+            model.addAttribute("pageName", "users");
+            if (bindingResult.hasErrors()) {
+                model.addAttribute("page", "users/new");
+                return "application/index";
+            }
+            return "redirect:/users";
+        } else {
+            if (bindingResult.hasErrors()) {
+                return "redirect:/register";
+            }
+            user.setUserType("CLIENT");
+            user.setActive(false);
+            userService.addUser(user);
+            return "redirect:/login";
         }
-        userService.addUser(user);
-        return "redirect:/users";
     }
 
     @PostMapping("{id}/delete")

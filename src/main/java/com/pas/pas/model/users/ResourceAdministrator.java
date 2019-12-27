@@ -3,7 +3,7 @@ package com.pas.pas.model.users;
 import java.util.UUID;
 
 public class ResourceAdministrator extends User {
-    public ResourceAdministrator(String userName, String userSurname, String userType, UUID userId, String password) {
-        super(userName, userSurname, userType, userId, password);
+    public ResourceAdministrator(String userEmail, String userName, String userSurname, String userType, UUID userId, String password) {
+        super(userEmail, userName, userSurname, userType, userId, password);
     }
 }

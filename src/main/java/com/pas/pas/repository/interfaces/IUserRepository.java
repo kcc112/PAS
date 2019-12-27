@@ -16,6 +16,7 @@ public interface IUserRepository {
     List<User> getAllActiveClients();
 //    List<User> getUsersByName(String name);
     Optional<User> getUsersByName(String name);
+    Optional<User> selectUserByEmail(String email);
 
     default void addUser(User user) {
         UUID id = UUID.randomUUID();

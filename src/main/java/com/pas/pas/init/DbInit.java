@@ -31,12 +31,12 @@ public class DbInit implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        userRepository.addUser(new Admin("Kamil", "Celejewski","ADMIN", UUID.randomUUID(), passwordEncoder.encode("123")));
-        userRepository.addUser(new Client("Marcin1", "Morawski","CLIENT", UUID.randomUUID(),passwordEncoder.encode("123")));
-        userRepository.addUser(new Client("Marcin2", "Morawski","CLIENT", UUID.randomUUID(),passwordEncoder.encode("123")));
-        userRepository.addUser(new Client("Marcin3", "Morawski","CLIENT", UUID.randomUUID(),passwordEncoder.encode("123")));
-        userRepository.addUser(new Client("Marcin4", "Morawski","CLIENT", UUID.randomUUID(),passwordEncoder.encode("123")));
-        userRepository.addUser(new ResourceAdministrator("Szymon", "Dobrowolski","RESOURCE_ADMINISTRATOR", UUID.randomUUID(),passwordEncoder.encode("123")));
+        userRepository.addUser(new Admin("a@a.com","Kamil", "Celejewski","ADMIN", UUID.randomUUID(), passwordEncoder.encode("123")));
+        userRepository.addUser(new Client("b@b.com","Marcin1", "Morawski","CLIENT", UUID.randomUUID(),passwordEncoder.encode("123")));
+        userRepository.addUser(new Client("c@c.com","Marcin2", "Morawski","CLIENT", UUID.randomUUID(),passwordEncoder.encode("123")));
+        userRepository.addUser(new Client("d@d.com","Marcin3", "Morawski","CLIENT", UUID.randomUUID(),passwordEncoder.encode("123")));
+        userRepository.addUser(new Client("e@e.com","Marcin4", "Morawski","CLIENT", UUID.randomUUID(),passwordEncoder.encode("123")));
+        userRepository.addUser(new ResourceAdministrator("f@f.com","Szymon", "Dobrowolski","RESOURCE_ADMINISTRATOR", UUID.randomUUID(),passwordEncoder.encode("123")));
 
         Technology rubyOnRails = new RubyOnRails();
         Technology react = new React();

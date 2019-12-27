@@ -1,11 +1,18 @@
 package com.pas.pas.model.users;
 
+import com.pas.pas.model.users.custom_validator.EmailUnique;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.UUID;
 
 public class User {
+
+    @NotBlank(message = "Email is mandatory")
+    @Pattern(regexp =  "^[A-Za-z0-9]+@(.+)$", message = "Invalid email")
+    @EmailUnique(message = "Such email already exists")
+    private String userEmail;
 
     @NotBlank(message = "Name is mandatory")
     @Size(min = 3, max = 12, message = "Size must be between 3 and 12")
@@ -25,7 +32,8 @@ public class User {
     private UUID userId;
     private boolean isActive;
 
-    User(String userName, String userSurname, String userType, UUID userId, String password) {
+    User(String userEmail, String userName, String userSurname, String userType, UUID userId, String password) {
+        this.userEmail = userEmail;
         this.userName = userName;
         this.userSurname = userSurname;
         this.userType = userType;
@@ -82,6 +90,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     @Override

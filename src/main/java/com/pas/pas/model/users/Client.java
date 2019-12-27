@@ -11,8 +11,8 @@ public class Client extends User {
 
     private List<Event> events = new ArrayList<>();
 
-    public Client(String userName, String userSurname, String userType, UUID userId, String password) {
-        super(userName, userSurname, userType, userId, password);
+    public Client(String userEmail, String userName, String userSurname, String userType, UUID userId, String password) {
+        super(userEmail, userName, userSurname, userType, userId, password);
     }
 
     public Client() { }

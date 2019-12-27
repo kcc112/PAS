@@ -7,6 +7,7 @@ import com.pas.pas.model.users.User;
 import com.pas.pas.repository.interfaces.IUserRepository;
 import com.pas.pas.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,30 +18,34 @@ import java.util.UUID;
 @Service
 public class UserService implements IUserService {
 
-    private  final IUserRepository userRepository;
+    private final IUserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(IUserRepository userRepository) {
+    public UserService(IUserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public void addUser(User user) {
         String userName = user.getUserName();
         String userSurname = user.getUserSurname();
         String userType = user.getUserType();
+        String userEmail = user.getUserEmail();
+        String password = passwordEncoder.encode(user.getPassword());
         UUID id = user.getUserId();
 
         switch (user.getUserType()) {
             case "ADMIN":
-                user = new Admin(userName, userSurname, userType, id, "123");
+                user = new Admin(userEmail, userName, userSurname, userType, id, password);
                 userRepository.addUser(user);
                 break;
             case "CLIENT":
-                user = new Client(userName, userSurname, userType, id, "123");
+                user = new Client(userEmail,userName, userSurname, userType, id, password);
                 userRepository.addUser(user);
                 break;
             case "RESOURCE_ADMINISTRATOR":
-                user = new ResourceAdministrator(userName, userSurname, userType, id, "123");
+                user = new ResourceAdministrator(userEmail, userName, userSurname, userType, id, password);
                 userRepository.addUser(user);
                 break;
             default:
@@ -102,7 +107,6 @@ public class UserService implements IUserService {
     @Override
     public List<User> getUsersByName(String name) {
         //return userRepository.getUsersByName(name);
-        List<User> users = new ArrayList<>();
-        return users;
+        return new ArrayList<>();
     }
 }

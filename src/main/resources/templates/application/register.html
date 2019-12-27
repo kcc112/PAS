@@ -1,6 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/layout.css}"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
 <div th:fragment="new" xmlns:th="http://www.w3.org/1999/xhtml" class="d-flex justify-content-center">
     <div class="d-flex flex-column">
-        <h1 th:text="#{addNewUser}"></h1>
+        <h1 th:text="#{register}"></h1>
         <form class="form-group" action="#" th:action="@{/users}" th:object="${user}" method="post">
 
             <label for="userEmail" title="Email" th:text="#{userEmail}"></label>
@@ -19,17 +30,13 @@
             <input class="form-control" id="password" type="password" th:field="*{password}" />
             <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert alert-danger" role="alert"></div>
 
-            <label for="selectType" th:text="#{userType}"></label>
-            <select class="form-control" id="selectType" th:field="*{userType}">
-                <option value="ADMIN">Admin</option>
-                <option value="CLIENT">Client</option>
-                <option value="RESOURCE_ADMINISTRATOR">ResourceAdministrator</option>
-            </select>
-
             <div class="button-container">
-                <input class="btn btn-primary" type="submit" th:value="#{submit}" />
-                <input class="btn btn-danger" type="reset" th:value="#{reset}" />
+                <input class="btn btn-primary" type="submit" th:value="#{register}" />
+                <a href="/login" class="btn btn-outline-success my-2 my-sm-0" role="button" aria-pressed="true" th:text="#{logIn}"></a>
             </div>
         </form>
     </div>
 </div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

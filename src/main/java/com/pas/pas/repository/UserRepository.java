@@ -36,6 +36,13 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
+    public Optional<User> selectUserByEmail(String email) {
+        return users.stream()
+                .filter(user -> user.getUserEmail().equals(email))
+                .findFirst();
+    }
+
+    @Override
     public void destroyUser(UUID id) {
         Optional<User> userToDelete = selectUserById(id);
         synchronized (this) {
