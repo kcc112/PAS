@@ -3,7 +3,6 @@ package com.pas.pas.controllers;
 import com.pas.pas.model.users.User;
 import com.pas.pas.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -55,7 +54,7 @@ public class UserController {
             return "redirect:/users";
         } else {
             if (bindingResult.hasErrors()) {
-                return "redirect:/register";
+                return "application/register";
             }
             user.setUserType("CLIENT");
             user.setActive(false);

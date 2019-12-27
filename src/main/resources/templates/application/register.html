@@ -9,7 +9,7 @@
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<div th:fragment="new" xmlns:th="http://www.w3.org/1999/xhtml" class="d-flex justify-content-center">
+<div class="d-flex justify-content-center register-container">
     <div class="d-flex flex-column">
         <h1 th:text="#{register}"></h1>
         <form class="form-group" action="#" th:action="@{/users}" th:object="${user}" method="post">

@@ -34,6 +34,10 @@
     margin-bottom: 60px;
 }
 
+.register-container {
+    margin-bottom: 60px;
+}
+
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
