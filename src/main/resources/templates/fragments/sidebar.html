@@ -1,8 +1,9 @@
-<div th:fragment="sidebar" class="d-flex align-items-stretch" xmlns:th="http://www.w3.org/1999/xhtml">
+<div th:fragment="sidebar" class="d-flex align-items-stretch" xmlns:th="https://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div class="sidenav">
-        <a class="nav-link" th:href="@{/developers}" th:text="#{developers}"></a>
-        <a class="nav-link" th:href="@{/users}" th:text="#{users}"></a>
-        <a class="nav-link" th:href="@{/events}" th:text="#{events}"></a>
-        <a class="nav-link" th:href="@{/technologies}" th:text="#{technologies}"></a>
+        <a sec:authorize="hasRole('ROLE_RESOURCE_ADMINISTRATOR')" class="nav-link" th:href="@{/developers}" th:text="#{developers}"></a>
+        <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" th:href="@{/users}" th:text="#{users}"></a>
+        <a sec:authorize="hasRole('ROLE_CLIENT')" class="nav-link" th:href="@{/events}" th:text="#{events}"></a>
+        <a sec:authorized="isAuthenticated()" class="nav-link" th:href="@{/technologies}" th:text="#{technologies}"></a>
     </div>
 </div>

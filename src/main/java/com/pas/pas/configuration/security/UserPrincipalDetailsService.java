@@ -1,6 +1,5 @@
 package com.pas.pas.configuration.security;
 
-import com.pas.pas.configuration.security.UserPrincipal;
 import com.pas.pas.model.users.User;
 import com.pas.pas.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
