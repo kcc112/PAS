@@ -33,19 +33,23 @@ public class UserService implements IUserService {
         String userType = user.getUserType();
         String userEmail = user.getUserEmail();
         String password = passwordEncoder.encode(user.getPassword());
+        boolean isActive = user.getIsActive();
         UUID id = user.getUserId();
 
         switch (user.getUserType()) {
             case "ADMIN":
                 user = new Admin(userEmail, userName, userSurname, userType, id, password);
+                if (!isActive) user.setActive(false);
                 userRepository.addUser(user);
                 break;
             case "CLIENT":
                 user = new Client(userEmail,userName, userSurname, userType, id, password);
+                if (!isActive) user.setActive(false);
                 userRepository.addUser(user);
                 break;
             case "RESOURCE_ADMINISTRATOR":
                 user = new ResourceAdministrator(userEmail, userName, userSurname, userType, id, password);
+                if (!isActive) user.setActive(false);
                 userRepository.addUser(user);
                 break;
             default:
