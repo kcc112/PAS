@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class PasApplication {
@@ -34,6 +35,11 @@ public class PasApplication {
 		tomcat.addAdditionalTomcatConnectors(httpToHttpsRedirectConnector());
 
 		return tomcat;
+	}
+
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
 	}
 
 	private Connector httpToHttpsRedirectConnector() {

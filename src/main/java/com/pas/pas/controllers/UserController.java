@@ -1,13 +1,16 @@
 package com.pas.pas.controllers;
 
+import com.pas.pas.configuration.captcha.Captcha;
 import com.pas.pas.model.users.User;
 import com.pas.pas.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.security.Principal;
 import java.util.List;
@@ -19,10 +22,12 @@ import java.util.UUID;
 public class UserController {
 
     private final IUserService userService;
+    private final RestTemplate restTemplate;
 
     @Autowired
-    public UserController(IUserService userService) {
+    public UserController(IUserService userService, RestTemplate restTemplate) {
         this.userService = userService;
+        this.restTemplate = restTemplate;
     }
 
     @GetMapping
@@ -44,22 +49,33 @@ public class UserController {
     }
 
     @PostMapping
-    private String create(@Validated @ModelAttribute("user") User user, BindingResult bindingResult, Model model, Principal principal) {
-        if (principal != null) {
-            model.addAttribute("pageName", "users");
-            if (bindingResult.hasErrors()) {
-                model.addAttribute("page", "users/new");
-                return "application/index";
+    private String create(@Validated @ModelAttribute("user") User user, BindingResult bindingResult, Model model, Principal principal,
+                          @RequestParam(name = "g-recaptcha-response") String captcha) {
+
+        String url = "https://www.google.com/recaptcha/api/siteverify";
+        String params = "?secret=6Lf7pMoUAAAAAEilK6w2URiI6ot6bRKJikOdrzHm&response=" + captcha;
+
+        Captcha captchaResponse = restTemplate.exchange(url+params, HttpMethod.POST,null, Captcha.class).getBody();
+
+        if (captchaResponse != null && captchaResponse.isSuccess()) {
+            if (principal != null) {
+                model.addAttribute("pageName", "users");
+                if (bindingResult.hasErrors()) {
+                    model.addAttribute("page", "users/new");
+                    return "application/index";
+                }
+                return "redirect:/users";
+            } else {
+                if (bindingResult.hasErrors()) {
+                    return "application/register";
+                }
+                user.setUserType("CLIENT");
+                user.setActive(false);
+                userService.addUser(user);
+                return "redirect:/login";
             }
-            return "redirect:/users";
         } else {
-            if (bindingResult.hasErrors()) {
-                return "application/register";
-            }
-            user.setUserType("CLIENT");
-            user.setActive(false);
-            userService.addUser(user);
-            return "redirect:/login";
+            return "redirect:/register";
         }
     }
 

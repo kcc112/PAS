@@ -23,6 +23,8 @@
             <input class="form-control" id="password" type="password" th:field="*{password}" />
             <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert alert-danger" role="alert"></div>
 
+            <div class="g-recaptcha" data-sitekey="6Lf7pMoUAAAAAIrDBgLVZS6SAnvTffmT9zr_PBiU"></div>
+
             <div class="button-container">
                 <input class="btn btn-primary" type="submit" th:value="#{register}" />
                 <a href="/login" class="btn btn-outline-success my-2 my-sm-0" role="button" aria-pressed="true" th:text="#{logIn}"></a>
