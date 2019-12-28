@@ -30,6 +30,7 @@ public class Application {
     @GetMapping("home")
     public String home(Model model) {
         model.addAttribute("pageName", "home");
-        return "application/home.html";
+        model.addAttribute("page", "application/home");
+        return "application/index";
     }
 }
