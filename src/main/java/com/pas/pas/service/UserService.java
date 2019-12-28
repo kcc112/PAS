@@ -113,4 +113,9 @@ public class UserService implements IUserService {
         //return userRepository.getUsersByName(name);
         return new ArrayList<>();
     }
+
+    @Override
+    public Optional<User> selectUserByEmail(String email) {
+        return userRepository.selectUserByEmail(email);
+    }
 }

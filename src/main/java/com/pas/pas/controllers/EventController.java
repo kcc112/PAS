@@ -7,11 +7,15 @@ import com.pas.pas.service.interfaces.IDeveloperService;
 import com.pas.pas.service.interfaces.IEventService;
 import com.pas.pas.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Security;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -41,14 +45,14 @@ public class EventController {
     }
 
     @GetMapping("new")
-    public String newForm(Model model) {
+    public String newForm(Model model, Authentication authentication) {
         Event event = new Event();
         User user = new User();
         Developer developer = new Developer();
         List<Developer> developers = developerService.getAllUnemployedDevelopers();
-        List<User> users = userService.getAllActiveClients();
+        Optional<User> currentUser = userService.selectUserByEmail(authentication.getName());
         model.addAttribute("pageName", "events");
-        model.addAttribute("users", users);
+        model.addAttribute("users", currentUser.get());
         model.addAttribute("developers", developers);
         model.addAttribute("user", user);
         model.addAttribute("developer", developer);
