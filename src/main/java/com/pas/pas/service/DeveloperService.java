@@ -47,6 +47,18 @@ public class DeveloperService implements IDeveloperService {
     }
 
     @Override
+    public void addDeveloper(Developer developer, String technology) {
+        List<Technology> technologies = technologyRepository.getAllTechnologies();
+
+        for (Technology tech : technologies) {
+            if (tech.getTechnologyName().equals(technology)) {
+                developer.setDeveloperTechnology(tech);
+                developerRepository.addDeveloper(developer);
+            }
+        }
+    }
+
+    @Override
     public void destroyDeveloper(UUID id) {
         Optional<Event> event = eventRepository.getEventsWithDevelopId(id);
         if (event.isPresent()) {

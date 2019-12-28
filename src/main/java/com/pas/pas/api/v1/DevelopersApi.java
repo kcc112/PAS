@@ -19,6 +19,12 @@ public class DevelopersApi {
         this.developerService = developerService;
     }
 
+    @PostMapping
+    public Developer addDeveloper(@RequestBody Developer developer, @RequestParam(name = "technology") String technology) {
+        developerService.addDeveloper(developer, technology);
+        return developer;
+    }
+
     @GetMapping
     public List<Developer> getAllDevelopers()  {
         return developerService.getAllDevelopers();
