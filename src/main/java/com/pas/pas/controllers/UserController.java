@@ -77,7 +77,7 @@ public class UserController {
                           Model model) {
         model.addAttribute("pageName", "users");
         user.setUserId(id);
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasFieldErrors("userName") || bindingResult.hasFieldErrors("userSurname")) {
             model.addAttribute("user", user);
             model.addAttribute("page", "users/edit");
             return "application/index";
@@ -88,12 +88,15 @@ public class UserController {
 
     @GetMapping("{id}/edit")
     public String edit(@PathVariable UUID id, Model model) {
-        User user = new User();
-        user.setUserId(id);
-        model.addAttribute("pageName", "users");
-        model.addAttribute("user", user);
-        model.addAttribute("page", "users/edit");
-        return "application/index";
+        Optional<User> user = userService.selectUserById(id);
+        if (user.isPresent()) {
+            model.addAttribute("pageName", "users");
+            model.addAttribute("user", user.get());
+            model.addAttribute("page", "users/edit");
+            return "application/index";
+        } else {
+            return "redirect:/users";
+        }
     }
 
     //Custom controllers region
