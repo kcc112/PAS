@@ -1,4 +1,4 @@
-<div th:fragment="index" xmlns:th="http://www.w3.org/1999/xhtml">
+<div th:fragment="index" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <table class="table">
         <thead class="thead-dark">
         <tr>
@@ -40,7 +40,7 @@
         </tr>
         </tbody>
     </table>
-    <form th:action="@{/events/new}">
+    <form sec:authorize="hasRole('ROLE_CLIENT')"  th:action="@{/events/new}">
         <input class="btn btn-success" type="submit" th:value="#{addNewEvent}" />
     </form>
 </div>
