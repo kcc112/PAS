@@ -46,4 +46,15 @@ public class EventRepository implements IEventRepository {
     public List<Event> getAllEvents() {
         return events;
     }
+
+    @Override
+    public List<Event> getAllEventsWithUser(String email) {
+        List<Event> userEvents = new ArrayList<>();
+        for (Event event : events) {
+            if (event.getUser().getUserEmail().equals(email)) {
+                userEvents.add(event);
+            }
+        }
+        return userEvents;
+    }
 }

@@ -36,8 +36,13 @@ public class EventController {
     }
 
     @GetMapping
-    public String index(Model model) {
-        List<Event> events = eventService.getAllEvents();
+    public String index(Model model, Authentication authentication) {
+        List<Event> events;
+        if (authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"))) {
+            events = eventService.getAllEvents();
+        } else {
+            events = eventService.getAllEventsWithUser(authentication.getName());
+        }
         model.addAttribute("events", events);
         model.addAttribute("page", "events/index");
         model.addAttribute("pageName", "events");

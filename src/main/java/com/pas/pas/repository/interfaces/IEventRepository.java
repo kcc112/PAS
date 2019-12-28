@@ -12,6 +12,7 @@ public interface IEventRepository {
     Optional<Event> selectEventById(UUID id);
     List<Event> getAllEvents();
     Optional<Event> getEventsWithDevelopId(UUID id);
+    List<Event> getAllEventsWithUser(String email);
 
     default void addEvent(Event event) {
         UUID id = UUID.randomUUID();

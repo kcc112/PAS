@@ -66,4 +66,9 @@ public class EventService implements IEventService {
             event.get().setEndDate(LocalDate.now());
         }
     }
+
+    @Override
+    public List<Event> getAllEventsWithUser(String email) {
+        return eventRepository.getAllEventsWithUser(email);
+    }
 }

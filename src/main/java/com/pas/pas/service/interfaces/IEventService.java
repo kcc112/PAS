@@ -10,4 +10,5 @@ public interface IEventService {
     void addEvent(Event event);
     void destroyEvent(UUID id);
     void finishEvent(UUID id);
+    List<Event> getAllEventsWithUser(String email);
 }
