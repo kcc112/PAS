@@ -1,6 +1,8 @@
 package com.pas.pas.api.v1;
 
+import com.pas.pas.model.developers.Backend;
 import com.pas.pas.model.developers.Developer;
+import com.pas.pas.model.developers.FrontEnd;
 import com.pas.pas.service.DeveloperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +21,14 @@ public class DevelopersApi {
         this.developerService = developerService;
     }
 
-    @PostMapping
-    public Developer addDeveloper(@RequestBody Developer developer, @RequestParam(name = "technology") String technology) {
-        developerService.addDeveloper(developer, technology);
-        return developer;
+    @PostMapping("/front-end")
+    public void addDeveloperFrontEnd(@RequestBody FrontEnd developer) {
+        developerService.addDeveloper(developer, developer.getDeveloperTechnology());
+    }
+
+    @PostMapping("/back-end")
+    public void addDeveloperBackEnd(@RequestBody Backend developer) {
+        developerService.addDeveloper(developer, developer.getDeveloperTechnology());
     }
 
     @GetMapping
@@ -33,6 +39,11 @@ public class DevelopersApi {
     @GetMapping(path = "{id}")
     public Developer getDevelopersByName(@PathVariable UUID id) {
         return developerService.selectDeveloperById(id).orElse(null);
+    }
+
+    @PutMapping(path = "{id}")
+    public void updateDeveloper(@RequestBody Developer developer, @PathVariable UUID id) {
+        developerService.updateDeveloper(developer);
     }
 
     @DeleteMapping(path = "{id}")
