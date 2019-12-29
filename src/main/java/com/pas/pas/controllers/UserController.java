@@ -74,6 +74,8 @@ public class UserController {
                 userService.addUser(user);
                 return "redirect:/login";
             }
+        } else if (principal != null) {
+            return "redirect:/users/new";
         } else {
             return "redirect:/register";
         }

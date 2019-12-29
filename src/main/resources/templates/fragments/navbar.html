@@ -6,7 +6,7 @@
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" th:text="#{search}"></button>
         </form>
         <form th:action="@{/developers/search}" th:if="${page == 'developers/index'}" class="form-inline my-2 my-lg-0">
-            <input th:name="name"  class="form-control mr-sm-2" type="search" th:placeholder="#{searchByName}" aria-label="Search">
+            <input th:name="search" id="search" class="form-control mr-sm-2" type="search" th:placeholder="#{searchByName}" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" th:text="#{search}"></button>
         </form>
         <ul class="navbar-nav ml-auto">
