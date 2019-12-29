@@ -14,8 +14,8 @@ public interface IUserRepository {
     Optional<User> selectUserById(UUID id);
     List<User> getAllUsers();
     List<User> getAllActiveClients();
-//    List<User> getUsersByName(String name);
-    Optional<User> getUsersByName(String name);
+     List<User> getUsersByName(String name);
+    Optional<User> getUserByName(String name);
     Optional<User> selectUserByEmail(String email);
 
     default void addUser(User user) {

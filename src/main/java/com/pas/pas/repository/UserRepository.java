@@ -73,19 +73,19 @@ public class UserRepository implements IUserRepository {
         return activeClients;
     }
 
-//    @Override
-//    public List<User> getUsersByName(String name) {
-//        List<User> clients = new ArrayList<>();
-//        for (User user : users) {
-//            if (user.getUserName().equals(name)) {
-//                clients.add(user);
-//            }
-//        }
-//        return clients;
-//    }
+    @Override
+    public List<User> getUsersByName(String name) {
+        List<User> clients = new ArrayList<>();
+        for (User user : users) {
+            if (user.getUserName().equals(name)) {
+                clients.add(user);
+            }
+        }
+        return clients;
+    }
 
     @Override
-    public Optional<User> getUsersByName(String name) {
+    public Optional<User> getUserByName(String name) {
         return users.stream()
                 .filter(user -> user.getUserName().equals(name))
                 .findFirst();
