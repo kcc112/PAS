@@ -5,6 +5,10 @@ import com.pas.pas.model.developers.Developer;
 import com.pas.pas.model.developers.FrontEnd;
 import com.pas.pas.service.DeveloperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -23,13 +27,21 @@ public class DevelopersApi {
     }
 
     @PostMapping("/front-end")
-    public void addDeveloperFrontEnd(@RequestBody FrontEnd developer) {
+    public ResponseEntity addDeveloperFrontEnd(@Validated @RequestBody FrontEnd developer, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
         developerService.addDeveloper(developer, developer.getDeveloperTechnology());
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PostMapping("/back-end")
-    public void addDeveloperBackEnd(@RequestBody Backend developer) {
+    public ResponseEntity addDeveloperBackEnd(@Validated @RequestBody Backend developer, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
         developerService.addDeveloper(developer, developer.getDeveloperTechnology());
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @GetMapping
