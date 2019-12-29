@@ -56,13 +56,21 @@ public class DevelopersApi {
     }
 
     @PutMapping("/front-end")
-    public void updateDeveloperFrontEnd(@RequestBody FrontEnd developer) {
+    public ResponseEntity updateDeveloperFrontEnd(@Validated @RequestBody FrontEnd developer, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
         developerService.updateDeveloper(developer);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PutMapping("/back-end")
-    public void updateDeveloperBackEnd(@RequestBody Backend developer) {
+    public ResponseEntity updateDeveloperBackEnd(@Validated @RequestBody Backend developer, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
         developerService.updateDeveloper(developer);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping(path = "{id}")
