@@ -7,6 +7,7 @@ import com.pas.pas.service.DeveloperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,14 +33,20 @@ public class DevelopersApi {
     }
 
     @GetMapping
-    public List<Developer> getAllDevelopers()  {
-        return developerService.getAllDevelopers();
+    public List<Developer> getDevelopers(@RequestParam(name = "id", required = false) UUID id)  {
+        if (id == null || id.toString().isBlank()) {
+            return developerService.getAllDevelopers();
+        } else {
+            List<Developer> developers = new ArrayList<>();
+            developers.add(developerService.selectDeveloperById(id).orElse(null));
+            return developers;
+        }
     }
 
-    @GetMapping(path = "{id}")
-    public Developer getDevelopersByName(@PathVariable UUID id) {
-        return developerService.selectDeveloperById(id).orElse(null);
-    }
+//    @GetMapping(path = "{id}")
+//    public Developer getDevelopersById(@PathVariable UUID id) {
+//        return developerService.selectDeveloperById(id).orElse(null);
+//    }
 
     @PutMapping(path = "{id}")
     public void updateDeveloper(@RequestBody Developer developer, @PathVariable UUID id) {
