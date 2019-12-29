@@ -43,13 +43,13 @@ public class DevelopersApi {
         }
     }
 
-//    @GetMapping(path = "{id}")
-//    public Developer getDevelopersById(@PathVariable UUID id) {
-//        return developerService.selectDeveloperById(id).orElse(null);
-//    }
+    @PutMapping("/front-end")
+    public void updateDeveloperFrontEnd(@RequestBody FrontEnd developer) {
+        developerService.updateDeveloper(developer);
+    }
 
-    @PutMapping(path = "{id}")
-    public void updateDeveloper(@RequestBody Developer developer, @PathVariable UUID id) {
+    @PutMapping("/back-end")
+    public void updateDeveloperBackEnd(@RequestBody Backend developer) {
         developerService.updateDeveloper(developer);
     }
 
