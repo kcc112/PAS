@@ -8,11 +8,15 @@ import com.pas.pas.model.technologies.Technology;
 import com.pas.pas.service.interfaces.IDeveloperService;
 import com.pas.pas.service.interfaces.ITechnologyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,16 +28,21 @@ public class DeveloperController {
 
     private final IDeveloperService developerService;
     private final ITechnologyService technologyService;
+    private final RestTemplate restTemplate;
 
     @Autowired
-    public DeveloperController(IDeveloperService developerService, ITechnologyService technologyService) {
+    public DeveloperController(IDeveloperService developerService, ITechnologyService technologyService, @Qualifier("restTemplate") RestTemplate restTemplate) {
         this.developerService = developerService;
         this.technologyService = technologyService;
+        this.restTemplate = restTemplate;
     }
 
     @GetMapping
     public String index(Model model) {
-        List<Developer> developers = developerService.getAllDevelopers();
+        List<Developer> developers = restTemplate.exchange("https://localhost:3443/api/v1/developers",
+                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Developer>>() {
+                        }).getBody();
+//        List<Developer> developers = developerService.getAllDevelopers();
         model.addAttribute("developers", developers);
         model.addAttribute("page", "developers/index");
         model.addAttribute("pageName", "developers");
