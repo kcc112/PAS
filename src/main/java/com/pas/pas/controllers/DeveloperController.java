@@ -10,7 +10,7 @@ import com.pas.pas.service.interfaces.ITechnologyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,9 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @RequestMapping("/developers")
 @Controller
@@ -40,9 +38,9 @@ public class DeveloperController {
     @GetMapping
     public String index(Model model) {
         List<Developer> developers = restTemplate.exchange("https://localhost:3443/api/v1/developers",
-                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Developer>>() {
-                        }).getBody();
-//        List<Developer> developers = developerService.getAllDevelopers();
+                HttpMethod.GET, null, new ParameterizedTypeReference<List<Developer>>() {
+                }).getBody();
+        // List<Developer> developers = developerService.getAllDevelopers();
         model.addAttribute("developers", developers);
         model.addAttribute("page", "developers/index");
         model.addAttribute("pageName", "developers");
@@ -90,7 +88,12 @@ public class DeveloperController {
             model.addAttribute("page", "developers/new");
             return "application/index";
         }
-        developerService.addDeveloper(developer, technology);
+       // developerService.addDeveloper(developer, technology);
+        developer.setDeveloperTechnology(technology);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<FrontEnd> entity = new HttpEntity<FrontEnd>(developer, headers);
+        restTemplate.exchange("https://localhost:3443/api/v1/developers/front-end", HttpMethod.POST, entity, String.class);
         return "redirect:/developers";
     }
 
@@ -108,15 +111,21 @@ public class DeveloperController {
             model.addAttribute("page", "developers/new");
             return "application/index";
         }
-        developerService.addDeveloper(developer, technology);
+        // developerService.addDeveloper(developer, technology);
+        developer.setDeveloperTechnology(technology);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<Backend> entity = new HttpEntity<Backend>(developer, headers);
+        restTemplate.exchange("https://localhost:3443/api/v1/developers/back-end", HttpMethod.POST, entity, String.class);
         return "redirect:/developers";
     }
 
 
     @PostMapping("{id}/delete")
     private String destroy(@PathVariable UUID id, Model model) {
+        restTemplate.delete("https://localhost:3443/api/v1/developers/" + id);
         model.addAttribute("pageName", "developers");
-        developerService.destroyDeveloper(id);
+        // developerService.destroyDeveloper(id);
         return "redirect:/developers";
     }
 
@@ -137,7 +146,11 @@ public class DeveloperController {
             return "application/index";
         }
         developer.setDeveloperTechnology(technology);
-        developerService.updateDeveloper(developer);
+        // developerService.updateDeveloper(developer);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<Backend> entity = new HttpEntity<Backend>(developer, headers);
+        restTemplate.exchange("https://localhost:3443/api/v1/developers/back-end", HttpMethod.PUT, entity, String.class);
         return "redirect:/developers";
     }
 
@@ -158,7 +171,11 @@ public class DeveloperController {
             return "application/index";
         }
         developer.setDeveloperTechnology(technology);
-        developerService.updateDeveloper(developer);
+        // developerService.updateDeveloper(developer);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<FrontEnd> entity = new HttpEntity<FrontEnd>(developer, headers);
+        restTemplate.exchange("https://localhost:3443/api/v1/developers/front-end", HttpMethod.PUT, entity, String.class);
         return "redirect:/developers";
     }
 
@@ -166,22 +183,34 @@ public class DeveloperController {
     public String edit(@PathVariable UUID id, Model model) {
         DeveloperType developerType;
         List<Technology> technologies;
-        Optional<Developer> developer = developerService.selectDeveloperById(id);
+        ResponseEntity<String> result = restTemplate.getForEntity("https://localhost:3443/api/v1/developers?id=" + id, String.class);
+        // Optional<Developer> developer = developerService.selectDeveloperById(id);
         model.addAttribute("pageName", "developers");
-        if (developer.isPresent()) {
-            if (developer.get() instanceof FrontEnd) {
+        if (result != null) {
+            if (Objects.requireNonNull(result.getBody()).contains("dummyAttribute")) {
+                List<FrontEnd> developers = restTemplate.exchange("https://localhost:3443/api/v1/developers?id=" + id,
+                        HttpMethod.GET, null, new ParameterizedTypeReference<List<FrontEnd>>() {
+                        }).getBody();
                 technologies = technologyService.getAllTechnologiesFrontEnd();
                 developerType = new DeveloperType("front-end");
-            } else if (developer.get() instanceof Backend) {
+                if (developers != null) {
+                    model.addAttribute("developer", developers.get(0));
+                    model.addAttribute("technology", developers.get(0).getDeveloperTechnology());
+                }
+            } else {
+                List<Backend> developers = restTemplate.exchange("https://localhost:3443/api/v1/developers?id=" + id,
+                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Backend>>() {
+                        }).getBody();
                 technologies = technologyService.getAllTechnologiesBackEnd();
                 developerType = new DeveloperType("back-end");
-            } else {
-                return "redirect:/developers";
+                if (developers != null) {
+                    model.addAttribute("developer", developers.get(0));
+                    model.addAttribute("technology", developers.get(0).getDeveloperTechnology());
+                }
             }
+
             model.addAttribute("developerType", developerType);
             model.addAttribute("technologies", technologies);
-            model.addAttribute("developer", developer.get());
-            model.addAttribute("technology", developer.get().getDeveloperTechnology());
             model.addAttribute("page", "/developers/edit");
             return  "/application/index";
         } else {
@@ -191,10 +220,13 @@ public class DeveloperController {
 
     @GetMapping("{id}/info")
     public String info(@PathVariable UUID id, Model model) {
-        Optional<Developer> developer = developerService.selectDeveloperById(id);
+//      Optional<Developer> developer = developerService.selectDeveloperById(id);
+        List<FrontEnd> developers = restTemplate.exchange("https://localhost:3443/api/v1/developers?id=" + id,
+                HttpMethod.GET, null, new ParameterizedTypeReference<List<FrontEnd>>() {
+                }).getBody();
         model.addAttribute("pageName", "developers");
-        if (developer.isPresent()) {
-            model.addAttribute("developer", developer.get());
+        if (developers != null) {
+            model.addAttribute("developer", developers.get(0));
             model.addAttribute("page", "developers/info");
             return "application/index";
         }
@@ -202,13 +234,19 @@ public class DeveloperController {
     }
 
     @GetMapping("search")
-    public String search(@RequestParam(value="name", required=false) String name, Model model) {
+    public String search(@RequestParam(value="search", required=false) String name, Model model) {
         List<Developer> developers;
         model.addAttribute("pageName", "developers");
-        if (name.isBlank()) {
-            developers = developerService.getAllDevelopers();
+        if (name.isBlank() || name.isEmpty()) {
+            // developers = developerService.getAllDevelopers();
+            developers = restTemplate.exchange("https://localhost:3443/api/v1/developers",
+                    HttpMethod.GET, null, new ParameterizedTypeReference<List<Developer>>() {
+                    }).getBody();
         } else {
-            developers = developerService.getDevelopersByName(name);
+            // developers = developerService.getDevelopersByName(name);
+            developers = restTemplate.exchange("https://localhost:3443/api/v1/developers?name=" + name,
+                    HttpMethod.GET, null, new ParameterizedTypeReference<List<Developer>>() {
+                    }).getBody();
         }
         model.addAttribute("developers", developers);
         model.addAttribute("page", "developers/index");

@@ -1,11 +1,13 @@
 package com.pas.pas.model.events;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.pas.pas.model.developers.Developer;
 import com.pas.pas.model.users.User;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
+@JsonIgnoreProperties("developer")
 public class Event {
     private UUID id;
     private User user;

@@ -1,5 +1,6 @@
 package com.pas.pas.model.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.pas.pas.model.events.Event;
 
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@JsonIgnoreProperties("events")
 public class Client extends User {
 
     private List<Event> events = new ArrayList<>();

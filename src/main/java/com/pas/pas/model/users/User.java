@@ -1,5 +1,6 @@
 package com.pas.pas.model.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.pas.pas.model.users.custom_validator.EmailUnique;
 
 import javax.validation.constraints.NotBlank;
@@ -7,6 +8,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.UUID;
 
+@JsonIgnoreProperties("password")
 public class User {
 
     @NotBlank(message = "Email is mandatory")
@@ -14,7 +16,7 @@ public class User {
     @EmailUnique(message = "Such email already exists")
     private String userEmail;
 
-    @NotBlank(message = "Name is mandatory")
+    @NotBlank(message = "Name is eventsmandatory")
     @Size(min = 3, max = 12, message = "Size must be between 3 and 12")
     @Pattern(regexp = "[A-Z][a-z]*", message = "Invalid name")
     private String userName;

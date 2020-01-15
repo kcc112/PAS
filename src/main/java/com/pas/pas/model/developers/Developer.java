@@ -1,5 +1,6 @@
 package com.pas.pas.model.developers;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.pas.pas.model.events.Event;
 import com.pas.pas.model.technologies.Technology;
 

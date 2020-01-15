@@ -7,7 +7,7 @@
                 <th scope="col" th:text="#{name}"></th>
                 <th scope="col" th:text="#{surname}"></th>
                 <th scope="col" th:text="#{technologyName}"></th>
-                <th th:if="${(developer instanceof T(com.pas.pas.model.developers.FrontEnd))}" scope="col" th:field="#{dummyAttribute}"></th>
+                <th th:if="${(developer.dummyAttribute != null)}" scope="col" th:text="#{dummyAttribute}"></th>
             </tr>
             </thead>
             <tbody>
@@ -21,7 +21,7 @@
                 <td>
                     <span th:text="${developer.developerTechnology.technologyName}"></span>
                 </td>
-                <td th:if="${(developer instanceof T(com.pas.pas.model.developers.FrontEnd))}">
+                <td th:if="${(developer.dummyAttribute != null)}">
                     <span th:text="${developer.dummyAttribute}"></span>
                 </td>
             </tr>

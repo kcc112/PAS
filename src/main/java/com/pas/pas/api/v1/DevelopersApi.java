@@ -45,12 +45,16 @@ public class DevelopersApi {
     }
 
     @GetMapping
-    public List<Developer> getDevelopers(@RequestParam(name = "id", required = false) UUID id)  {
-        if (id == null || id.toString().isBlank()) {
+    public List<Developer> getDevelopers(@RequestParam(name = "id", required = false) UUID id, @RequestParam(name = "name", required = false) String name)  {
+        if ((id == null || id.toString().isBlank()) && (name == null || name.isBlank())) {
             return developerService.getAllDevelopers();
-        } else {
+        } else if (id != null){
             List<Developer> developers = new ArrayList<>();
             developers.add(developerService.selectDeveloperById(id).orElse(null));
+            return developers;
+        } else {
+            List<Developer> developers;
+            developers = developerService.getDevelopersByName(name);
             return developers;
         }
     }
